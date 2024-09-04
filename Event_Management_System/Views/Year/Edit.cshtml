@@ -1,0 +1,36 @@
+﻿@model Event_Management_System.Models.Year_Tbl
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h3>Update Year</h3>
+
+@using (Html.BeginForm("UpdateYear", "Year", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.Year_id)
+    <div class="row">
+        <div class="col-md-6">
+            <label>Year</label>
+            @Html.TextBoxFor(x => x.Year, new { @class = "form-control" })
+        </div>
+        @*<div class="col-md-6">
+            <label>Created Date</label>
+            @Html.TextBoxFor(x => x.Created_Date, new { @class = "form-control", @type = "date" })
+        </div>*@
+    </div>
+
+
+
+    <div class="row">
+        @*<div class="col-md-7">
+            <label>Created By</label>
+            @Html.TextBoxFor(x => x.Created_by, new { @class = "form-control", @type = "number" })
+        </div>*@
+        <div class="col-md-5 mt-3">
+            <input type="submit" value="Update" class="btn btn-success" />
+            <a href="/Year/Index" class="btn btn-secondary">Back</a>
+        </div>
+    </div>
+}
+

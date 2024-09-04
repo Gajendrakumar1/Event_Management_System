@@ -1,0 +1,90 @@
+﻿@model IEnumerable<Event_Management_System.Models.Event_Tbl>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<div class="row mt-5">
+    <div class="col-md-6">
+        <h3>Event Details</h3>
+    </div>
+    <div class="col-md-6 text-end">
+        <a href="/Event/Add" class="btn btn-primary">Add New</a>
+    </div>
+</div>
+
+<table class="table table-bordered">
+    <tr>
+        <th>
+
+        @Html.DisplayNameFor(model => model.EventMaster_Tbl.Event_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EventLocationMaster_Tbl.Location)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Event_FromDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Event_ToDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Event_FromTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Event_ToTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PriceperSeat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.maxSeatbookperuser)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+
+        <th>Action</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EventMaster_Tbl.Event_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EventLocationMaster_Tbl.Location)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Event_FromDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Event_ToDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Event_FromTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Event_ToTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PriceperSeat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.maxSeatbookperuser)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+
+
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Event_Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Event_Id })
+        </td>
+    </tr>
+}
+
+</table>

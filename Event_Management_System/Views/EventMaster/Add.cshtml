@@ -1,0 +1,31 @@
+﻿@model Event_Management_System.Models.EventCollegeVM
+@{
+    ViewBag.Title = "Add";
+}
+
+<h2>Add Event</h2>
+
+@using (Html.BeginForm("AddEventMast", "EventMaster", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-6">
+            <label>College Name</label>
+            @Html.DropDownListFor(x => x.College_id, ViewBag.CollegeData as SelectList, "--Select College--", new { @class = "form-control" })
+        </div>
+
+        <div class="col-md-6">
+            <label>Event Name</label>
+            @Html.TextBoxFor(x => x.Event_Name, new { @class = "form-control" })
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-5">
+            <input type="submit" value="Save" class="btn btn-success mt-3" />
+            <a href="/EventMaster/Index" class="btn btn-secondary mt-3">Back</a>
+        </div>
+    </div>
+}
+

@@ -1,0 +1,33 @@
+﻿@model Event_Management_System.Models.Semester_Tbl
+
+@{
+    ViewBag.Title = "Add";
+}
+
+<h2>Add Semester</h2>
+
+@using (Html.BeginForm("AddSemester", "Semester", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-6">
+            <label>Semester</label>
+            @Html.TextBoxFor(x => x.Sem_Name, new { @class = "form-control" })
+        </div>
+        @*<div class="col-md-6">
+            <label>Created Date</label>
+            @Html.TextBoxFor(x => x.Created_Date, new { @class = "form-control", @type = "date" })
+        </div>*@
+    </div>
+
+    <div class="row">
+        @*<div class="col-md-7">
+            <label>Created By</label>
+            @Html.TextBoxFor(x => x.Created_by, new { @class = "form-control", @type = "number" })
+        </div>*@
+        <div class="col-md-5">
+            <input type="submit" value="Save" class="btn btn-success mt-3" />
+            <a href="/Semester/Index" class="btn btn-secondary mt-3">Back</a>
+        </div>
+    </div>
+}
+

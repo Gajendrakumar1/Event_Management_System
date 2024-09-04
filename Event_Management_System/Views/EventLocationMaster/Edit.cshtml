@@ -1,0 +1,43 @@
+﻿@model Event_Management_System.Models.EvtLocationCollegeVM
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Update Event Location</h2>
+
+@using (Html.BeginForm("UpdateEvtLocation", "EventLocationMaster", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.EventLoc_ID)
+    <div class="row">
+        <div class="col-md-6">
+            <label>College Name</label>
+            @Html.DropDownList("College_id", ViewBag.CollegeData as SelectList, "--Select College--", new { @class = "form-control" })
+        </div>
+        <div class="col-md-6">
+            <label>Location</label>
+            @Html.TextBoxFor(x => x.Location, new { @class = "form-control" })
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label>No Of Seats</label>
+            @Html.TextBoxFor(x => x.No_of_Seat, new { @class = "form-control", @type = "number" })
+        </div>
+        <div class="col-md-6">
+            <label>No Of Rows</label>
+            @Html.TextBoxFor(x => x.No_Of_Row, new { @class = "form-control", @type = "number" })
+        </div>
+    </div>
+
+    <div class="row">
+        
+        <div class="col-md-6">
+            <input type="submit" value="Update" class="btn btn-success mt-3" />
+            <a href="/EventLocationMaster/Index" class="btn btn-secondary mt-3">Back</a>
+        </div>
+    </div>
+
+}
+

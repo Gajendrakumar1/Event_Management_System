@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Event_Management_System.Models.EventMaster_Tbl>
+
+
+@*@model Event_Management_System.Models.EventCollegeVM*@
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<div class="row mt-5">
+    <div class="col-md-6">
+        <h3>Event Details</h3>
+    </div>
+    <div class="col-md-6 text-end">
+        <a href="/EventMaster/Add" class="btn btn-primary">Add New</a>
+    </div>
+</div>
+<table class="table table-bordered">
+    <tr>
+        <th> Event Name</th>
+        <th>College Name</th>
+        <th>Action</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Event_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.College_Tbl.College_Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Event_Id }) |
+            
+            @Html.ActionLink("Delete", "Remove", new { id=item.Event_Id })
+        </td>
+    </tr>
+}
+
+</table>

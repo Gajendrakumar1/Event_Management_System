@@ -1,0 +1,35 @@
+﻿@model Event_Management_System.Models.EventCollegeVM
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Update Event</h2>
+
+@using (Html.BeginForm("UpdateEvents", "EventMaster", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.Event_Id)
+    <div class="row">
+        <div class="col-md-6">
+            <label>College Name</label>
+            @Html.DropDownList("College_id", ViewBag.CollegeData as SelectList, "--Select College--", new { @class = "form-control" })
+        </div>
+
+        <div class="col-md-6">
+            <label>Event Name</label>
+            @Html.TextBoxFor(x => x.Event_Name, new { @class = "form-control" })
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-5">
+            <input type="submit" value="Update" class="btn btn-success mt-3" />
+            <a href="/EventMaster/Index" class="btn btn-secondary mt-3">Back</a>
+        </div>
+    </div>
+    
+}
+
+
+

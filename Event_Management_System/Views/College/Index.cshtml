@@ -1,0 +1,50 @@
+﻿@model List<Event_Management_System.Models.College_Tbl>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row mt-5">
+    <div class="col-md-6 ">
+        <h3>College Details</h3>
+    </div>
+    <div class="col-md-6 text-end">
+        <a href="/College/Add" class="btn btn-primary ">Add New</a>
+    </div>
+</div>
+
+
+
+<table class="table table-bordered">
+    <tr>
+        <th>College Id</th>
+        <th>College Name</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>State</th>
+        <th>PinCode</th>
+        @*<th>Created Date</th>
+        <th>Created By</th>*@
+        <th>Actions</th>
+    </tr>
+
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        <tr>
+            <td>@Model[i].College_id</td>
+            <td>@Model[i].College_Name</td>
+            <td>@Model[i].Address</td>
+            <td>@Model[i].City</td>
+            <td>@Model[i].State</td>
+            <td>@Model[i].PinCode</td>
+            @*<td>@Model[i].Created_Date</td>
+            <td>@Model[i].Created_by</td>*@
+            <td>
+                <a href="~/College/Edit?CollegeId=@Model[i].College_id">Edit</a>
+                <a href="~/College/Remove?CollegeId=@Model[i].College_id">Delete</a>
+                @*? means we are passing some id*@
+            </td>
+        </tr>
+    }
+</table>

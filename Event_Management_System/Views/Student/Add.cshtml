@@ -1,0 +1,72 @@
+﻿@model Event_Management_System.Models.StudentVM
+@{
+    ViewBag.Title = "Add";
+}
+
+<h2>Add Students</h2>
+
+@using (Html.BeginForm("AddStudent", "Student", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-4">
+            <label>College Name</label>
+            @Html.DropDownListFor(x => x.college_id, ViewBag.CollegeData as SelectList, "--Select College--" ,new { @class = "form-control" })
+        </div>
+        <div class="col-md-4">
+            <label>Year</label>
+            @Html.DropDownListFor(x => x.year_id, ViewBag.YearData as SelectList, "--Select Year--",new { @class = "form-control" })
+        </div><div class="col-md-4">
+            <label>Semester</label>
+            @Html.DropDownListFor(x => x.Sem_id, ViewBag.SemData as SelectList, "--Select Semester--",new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <label>Student Code</label>
+            @Html.TextBoxFor(x => x.Student_Code, new { @class = "form-control" })
+        </div>
+        <div class="col-md-4">
+            <label>Name</label>
+            @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+        </div>
+        <div class="col-md-4">
+            <label>Address</label>
+            @Html.TextBoxFor(x => x.Address, new { @class = "form-control" })
+        </div>
+    </div>
+
+    
+
+    <div class="row">
+        <div class="col-md-4">
+            <label>City</label>
+            @Html.TextBoxFor(x => x.City, new { @class = "form-control" })
+        </div>
+        <div class="col-md-4">
+            <label>State</label>
+            @Html.DropDownListFor(x => x.State, ViewBag.DDLStates as SelectList, "--Select State--", new { @class = "form-control" })
+        </div>
+        <div class="col-md-4">
+            <label>PinCode</label>
+            @Html.TextBoxFor(x => x.PinCode, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <label>Mobile</label>
+            @Html.TextBoxFor(x => x.Mobile, new { @class = "form-control", @Value = ViewBag.MobileNum })
+        </div>
+        <div class="col-md-4">
+            <label>EmailId</label>
+            @Html.TextBoxFor(x => x.EmailId, new { @class = "form-control" })
+        </div>
+        <div class="col-md-4">
+            <input type="submit" value="Save" class="btn btn-success mt-3" />
+            <a href="/Student/Index" class="btn btn-secondary mt-3">Back</a>
+        </div>
+    </div>
+
+
+}

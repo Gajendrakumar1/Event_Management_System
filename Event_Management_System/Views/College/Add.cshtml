@@ -1,0 +1,68 @@
+﻿@model Event_Management_System.Models.College_Tbl
+
+@{
+    ViewBag.Title = "Add";
+}
+
+<div class="row mt-5">
+    <div class="col-md-6 ">
+        <h3>Add Colleges</h3>
+    </div>
+    <div class="col-md-6 text-end">
+        
+    </div>
+</div>
+
+@using (Html.BeginForm("AddCollege", "College", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-6">
+            <label>College Name</label>
+            @Html.TextBoxFor(x => x.College_Name, new { @class = "form-control" })
+        </div>
+
+        <div class="col-md-6">
+            <label>Address</label>
+            @Html.TextBoxFor(x => x.Address, new { @class = "form-control" })
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <label>City</label>
+            @Html.TextBoxFor(x => x.City, new { @class = "form-control" })
+        </div>
+
+        <div class="col-md-6">
+            <label>State</label>
+            @Html.DropDownListFor(x => x.State, ViewBag.DDLStates as SelectList,"--Select State--" ,new { @class = "form-control" })
+        </div>
+    </div>
+    
+
+    <div class="row">
+        <div class="col-md-6">
+            <label>PinCode</label>
+            @Html.TextBoxFor(x => x.PinCode, new { @class = "form-control" })
+        </div>
+
+        @*<div class="col-md-6">
+            <label>Created Date</label>
+            @Html.TextBoxFor(x => x.Created_Date, new { @class = "form-control", @type = "date" })
+        </div>*@
+    </div>
+
+    <div class="row">
+        @*<div class="col-md-7">
+            <label>Created By</label>
+            @Html.TextBoxFor(x => x.Created_by, new { @class = "form-control", @type = "number" })
+        </div>*@
+        <div class="col-md-5">
+            <input type="submit" value="Save" class="btn btn-success mt-3" />
+            <a href="/College/Index" class="btn btn-secondary mt-3">Back</a>
+        </div>
+    </div>
+
+    
+} 
+

@@ -1,0 +1,27 @@
+﻿@model Event_Management_System.Models.Student_tbl
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+<div class="row">
+    <div class="col-md-4 offset-md-4 mt-5" style="border:1px solid #ccc;  padding:40px">
+
+        @using (Html.BeginForm("LoginAuth", "LoginPage", FormMethod.Post))
+        {
+            <h3>Login</h3>
+            <div class="row">
+                <div class="col-md-12">
+                    <label>Mobile Number</label>
+                    @Html.TextBoxFor(x => x.Mobile, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="submit" value="Login" class="btn btn-success mt-3" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

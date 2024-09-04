@@ -1,0 +1,47 @@
+﻿@model Event_Management_System.Models.BookingInfoVM
+@{
+    ViewBag.Title = "Add";
+}
+
+<h2>Add Book Info</h2>
+
+@using (Html.BeginForm("AddBookInfo", "BookingInfo", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-6">
+            <label>Event Name</label>
+            @Html.DropDownListFor(x => x.Event_Id , ViewBag.EvtMstData as SelectList, "--Select Event--" ,new { @class = "form-control", @type = "date" })
+        </div>
+        <div class="col-md-6">
+            <label>Booking date</label>
+            @Html.TextBoxFor(x => x.booking_date, new { @class = "form-control", @type = "date" })
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label>Booking Time</label>
+            @Html.TextBoxFor(x => x.booking_time, new { @class = "form-control" })
+        </div>
+        <div class="col-md-6">
+            <label>Total Book Seat</label>
+            @Html.TextBoxFor(x => x.TotalbookSeat, new { @class = "form-control", @type = "number" })
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label>Total Price</label>
+            @Html.TextBoxFor(x => x.TotalPrice, new { @class = "form-control", @type = "number" })
+        </div>
+        <div class="col-md-6">
+            <input type="submit" value="Save" class="btn btn-success mt-3" />
+            <a href="/BookingInfo/Index" class="btn btn-secondary mt-3">Back</a>
+        </div>
+    </div>
+
+    
+}
+

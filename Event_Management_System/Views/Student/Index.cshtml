@@ -1,0 +1,98 @@
+﻿@model IEnumerable<Event_Management_System.Models.Student_tbl>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row mt-5">
+    <div class="col-md-6">
+        <h3>Student Details</h3>
+    </div>
+    <div class="col-md-6 text-end">
+        <a href="/Student/Add" class="btn btn-primary">Add New</a>
+    </div>
+</div>
+
+<table class="table table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.College_Tbl.College_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Year_Tbl.Year)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Semester_Tbl.Sem_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Student_Code)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.State)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PinCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mobile)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailId)
+        </th>
+
+        <th>Action</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.College_Tbl.College_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Year_Tbl.Year)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Semester_Tbl.Sem_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Student_Code)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.State)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PinCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Mobile)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmailId)
+        </td>
+
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Student_id }) |
+            @Html.ActionLink("Delete", "Remove", new { id = item.Student_id })
+        </td>
+    </tr>
+}
+
+</table>

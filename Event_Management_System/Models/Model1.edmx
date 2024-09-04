@@ -1,0 +1,904 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Event_Management_SystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Booking_SeatInfo_tbl">
+          <Key>
+            <PropertyRef Name="bookingSeat_id" />
+          </Key>
+          <Property Name="bookingSeat_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_booking_id" Type="int" />
+          <Property Name="Created_Date" Type="datetime" Nullable="false" />
+          <Property Name="Created_by" Type="int" />
+        </EntityType>
+        <EntityType Name="BookingInfo_tbl">
+          <Key>
+            <PropertyRef Name="Booking_id" />
+          </Key>
+          <Property Name="Booking_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_student_id" Type="int" />
+          <Property Name="fk_eventid" Type="int" />
+          <Property Name="booking_date" Type="datetime" Nullable="false" />
+          <Property Name="booking_time" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TotalbookSeat" Type="int" Nullable="false" />
+          <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Created_Date" Type="datetime" Nullable="false" />
+          <Property Name="Created_by" Type="int" />
+        </EntityType>
+        <EntityType Name="Branch_Tbl">
+          <Key>
+            <PropertyRef Name="Branch_id" />
+          </Key>
+          <Property Name="Branch_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Branch" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Created_Date" Type="datetime" Nullable="false" />
+          <Property Name="Created_by" Type="int" />
+        </EntityType>
+        <EntityType Name="College_Tbl">
+          <Key>
+            <PropertyRef Name="College_id" />
+          </Key>
+          <Property Name="College_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="College_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="State" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PinCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Created_Date" Type="datetime" Nullable="false" />
+          <Property Name="Created_by" Type="int" />
+        </EntityType>
+        <EntityType Name="Event_Tbl">
+          <Key>
+            <PropertyRef Name="Event_Id" />
+          </Key>
+          <Property Name="Event_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FK_Event_Mst_Id" Type="int" />
+          <Property Name="Event_FromDate" Type="date" Nullable="false" />
+          <Property Name="Event_ToDate" Type="date" Nullable="false" />
+          <Property Name="Event_FromTime" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Event_ToTime" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="fk_Event_Loc_id" Type="int" />
+          <Property Name="PriceperSeat" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="maxSeatbookperuser" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Created_Date" Type="datetime" Nullable="false" />
+          <Property Name="Created_by" Type="int" />
+        </EntityType>
+        <EntityType Name="EventLocationMaster_Tbl">
+          <Key>
+            <PropertyRef Name="EventLoc_ID" />
+          </Key>
+          <Property Name="EventLoc_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Location" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="No_of_Seat" Type="int" Nullable="false" />
+          <Property Name="No_Of_Row" Type="int" Nullable="false" />
+          <Property Name="FKCollege_ID" Type="int" />
+          <Property Name="Created_Date" Type="datetime" Nullable="false" />
+          <Property Name="Created_by" Type="int" />
+        </EntityType>
+        <EntityType Name="EventMaster_Tbl">
+          <Key>
+            <PropertyRef Name="Event_Id" />
+          </Key>
+          <Property Name="Event_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Event_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FKCollege_ID" Type="int" />
+          <Property Name="Created_Date" Type="datetime" Nullable="false" />
+          <Property Name="Created_by" Type="int" />
+        </EntityType>
+        <EntityType Name="Seat_tbl">
+          <Key>
+            <PropertyRef Name="Seat_id" />
+          </Key>
+          <Property Name="Seat_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Seat_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Seat_row" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FK_EventLoc_ID" Type="int" />
+          <Property Name="fk_Even_Mst_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Semester_Tbl">
+          <Key>
+            <PropertyRef Name="Sem_id" />
+          </Key>
+          <Property Name="Sem_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sem_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Created_Date" Type="datetime" Nullable="false" />
+          <Property Name="Created_by" Type="int" />
+        </EntityType>
+        <EntityType Name="State_List">
+          <Key>
+            <PropertyRef Name="State_Id" />
+          </Key>
+          <Property Name="State_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="State_Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Student_tbl">
+          <Key>
+            <PropertyRef Name="Student_id" />
+          </Key>
+          <Property Name="Student_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Student_Code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="State" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PinCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Mobile" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmailId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FKCollege_ID" Type="int" />
+          <Property Name="FkYearId" Type="int" />
+          <Property Name="FKSemID" Type="int" />
+          <Property Name="Created_Date" Type="datetime" Nullable="false" />
+          <Property Name="Created_by" Type="int" />
+        </EntityType>
+        <EntityType Name="Year_Tbl">
+          <Key>
+            <PropertyRef Name="Year_id" />
+          </Key>
+          <Property Name="Year_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Year" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Created_Date" Type="datetime" Nullable="false" />
+          <Property Name="Created_by" Type="int" />
+        </EntityType>
+        <Association Name="FK__Booking_S__fk_bo__68487DD7">
+          <End Role="BookingInfo_tbl" Type="Self.BookingInfo_tbl" Multiplicity="0..1" />
+          <End Role="Booking_SeatInfo_tbl" Type="Self.Booking_SeatInfo_tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookingInfo_tbl">
+              <PropertyRef Name="Booking_id" />
+            </Principal>
+            <Dependent Role="Booking_SeatInfo_tbl">
+              <PropertyRef Name="fk_booking_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BookingIn__fk_ev__656C112C">
+          <End Role="Event_Tbl" Type="Self.Event_Tbl" Multiplicity="0..1" />
+          <End Role="BookingInfo_tbl" Type="Self.BookingInfo_tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Event_Tbl">
+              <PropertyRef Name="Event_Id" />
+            </Principal>
+            <Dependent Role="BookingInfo_tbl">
+              <PropertyRef Name="fk_eventid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BookingIn__fk_st__6477ECF3">
+          <End Role="Student_tbl" Type="Self.Student_tbl" Multiplicity="0..1" />
+          <End Role="BookingInfo_tbl" Type="Self.BookingInfo_tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student_tbl">
+              <PropertyRef Name="Student_id" />
+            </Principal>
+            <Dependent Role="BookingInfo_tbl">
+              <PropertyRef Name="fk_student_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Event_Tbl__FK_Ev__60A75C0F">
+          <End Role="EventMaster_Tbl" Type="Self.EventMaster_Tbl" Multiplicity="0..1" />
+          <End Role="Event_Tbl" Type="Self.Event_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EventMaster_Tbl">
+              <PropertyRef Name="Event_Id" />
+            </Principal>
+            <Dependent Role="Event_Tbl">
+              <PropertyRef Name="FK_Event_Mst_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Event_Tbl__fk_Ev__619B8048">
+          <End Role="EventLocationMaster_Tbl" Type="Self.EventLocationMaster_Tbl" Multiplicity="0..1" />
+          <End Role="Event_Tbl" Type="Self.Event_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EventLocationMaster_Tbl">
+              <PropertyRef Name="EventLoc_ID" />
+            </Principal>
+            <Dependent Role="Event_Tbl">
+              <PropertyRef Name="fk_Event_Loc_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EventLoca__FKCol__59FA5E80">
+          <End Role="College_Tbl" Type="Self.College_Tbl" Multiplicity="0..1" />
+          <End Role="EventLocationMaster_Tbl" Type="Self.EventLocationMaster_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="College_Tbl">
+              <PropertyRef Name="College_id" />
+            </Principal>
+            <Dependent Role="EventLocationMaster_Tbl">
+              <PropertyRef Name="FKCollege_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EventMast__FKCol__571DF1D5">
+          <End Role="College_Tbl" Type="Self.College_Tbl" Multiplicity="0..1" />
+          <End Role="EventMaster_Tbl" Type="Self.EventMaster_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="College_Tbl">
+              <PropertyRef Name="College_id" />
+            </Principal>
+            <Dependent Role="EventMaster_Tbl">
+              <PropertyRef Name="FKCollege_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Seat_tbl__FK_Eve__5CD6CB2B">
+          <End Role="EventLocationMaster_Tbl" Type="Self.EventLocationMaster_Tbl" Multiplicity="0..1" />
+          <End Role="Seat_tbl" Type="Self.Seat_tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EventLocationMaster_Tbl">
+              <PropertyRef Name="EventLoc_ID" />
+            </Principal>
+            <Dependent Role="Seat_tbl">
+              <PropertyRef Name="FK_EventLoc_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Seat_tbl__fk_Eve__5DCAEF64">
+          <End Role="EventMaster_Tbl" Type="Self.EventMaster_Tbl" Multiplicity="0..1" />
+          <End Role="Seat_tbl" Type="Self.Seat_tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EventMaster_Tbl">
+              <PropertyRef Name="Event_Id" />
+            </Principal>
+            <Dependent Role="Seat_tbl">
+              <PropertyRef Name="fk_Even_Mst_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Student_t__FKCol__52593CB8">
+          <End Role="College_Tbl" Type="Self.College_Tbl" Multiplicity="0..1" />
+          <End Role="Student_tbl" Type="Self.Student_tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="College_Tbl">
+              <PropertyRef Name="College_id" />
+            </Principal>
+            <Dependent Role="Student_tbl">
+              <PropertyRef Name="FKCollege_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Student_t__FKSem__5441852A">
+          <End Role="Semester_Tbl" Type="Self.Semester_Tbl" Multiplicity="0..1" />
+          <End Role="Student_tbl" Type="Self.Student_tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Semester_Tbl">
+              <PropertyRef Name="Sem_id" />
+            </Principal>
+            <Dependent Role="Student_tbl">
+              <PropertyRef Name="FKSemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Student_t__FkYea__534D60F1">
+          <End Role="Year_Tbl" Type="Self.Year_Tbl" Multiplicity="0..1" />
+          <End Role="Student_tbl" Type="Self.Student_tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Year_Tbl">
+              <PropertyRef Name="Year_id" />
+            </Principal>
+            <Dependent Role="Student_tbl">
+              <PropertyRef Name="FkYearId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Event_Management_SystemModelStoreContainer">
+          <EntitySet Name="Booking_SeatInfo_tbl" EntityType="Self.Booking_SeatInfo_tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookingInfo_tbl" EntityType="Self.BookingInfo_tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Branch_Tbl" EntityType="Self.Branch_Tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="College_Tbl" EntityType="Self.College_Tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Event_Tbl" EntityType="Self.Event_Tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventLocationMaster_Tbl" EntityType="Self.EventLocationMaster_Tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventMaster_Tbl" EntityType="Self.EventMaster_Tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Seat_tbl" EntityType="Self.Seat_tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Semester_Tbl" EntityType="Self.Semester_Tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="State_List" EntityType="Self.State_List" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student_tbl" EntityType="Self.Student_tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Year_Tbl" EntityType="Self.Year_Tbl" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Booking_S__fk_bo__68487DD7" Association="Self.FK__Booking_S__fk_bo__68487DD7">
+            <End Role="BookingInfo_tbl" EntitySet="BookingInfo_tbl" />
+            <End Role="Booking_SeatInfo_tbl" EntitySet="Booking_SeatInfo_tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BookingIn__fk_ev__656C112C" Association="Self.FK__BookingIn__fk_ev__656C112C">
+            <End Role="Event_Tbl" EntitySet="Event_Tbl" />
+            <End Role="BookingInfo_tbl" EntitySet="BookingInfo_tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BookingIn__fk_st__6477ECF3" Association="Self.FK__BookingIn__fk_st__6477ECF3">
+            <End Role="Student_tbl" EntitySet="Student_tbl" />
+            <End Role="BookingInfo_tbl" EntitySet="BookingInfo_tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Event_Tbl__FK_Ev__60A75C0F" Association="Self.FK__Event_Tbl__FK_Ev__60A75C0F">
+            <End Role="EventMaster_Tbl" EntitySet="EventMaster_Tbl" />
+            <End Role="Event_Tbl" EntitySet="Event_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Event_Tbl__fk_Ev__619B8048" Association="Self.FK__Event_Tbl__fk_Ev__619B8048">
+            <End Role="EventLocationMaster_Tbl" EntitySet="EventLocationMaster_Tbl" />
+            <End Role="Event_Tbl" EntitySet="Event_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EventLoca__FKCol__59FA5E80" Association="Self.FK__EventLoca__FKCol__59FA5E80">
+            <End Role="College_Tbl" EntitySet="College_Tbl" />
+            <End Role="EventLocationMaster_Tbl" EntitySet="EventLocationMaster_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EventMast__FKCol__571DF1D5" Association="Self.FK__EventMast__FKCol__571DF1D5">
+            <End Role="College_Tbl" EntitySet="College_Tbl" />
+            <End Role="EventMaster_Tbl" EntitySet="EventMaster_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Seat_tbl__FK_Eve__5CD6CB2B" Association="Self.FK__Seat_tbl__FK_Eve__5CD6CB2B">
+            <End Role="EventLocationMaster_Tbl" EntitySet="EventLocationMaster_Tbl" />
+            <End Role="Seat_tbl" EntitySet="Seat_tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Seat_tbl__fk_Eve__5DCAEF64" Association="Self.FK__Seat_tbl__fk_Eve__5DCAEF64">
+            <End Role="EventMaster_Tbl" EntitySet="EventMaster_Tbl" />
+            <End Role="Seat_tbl" EntitySet="Seat_tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student_t__FKCol__52593CB8" Association="Self.FK__Student_t__FKCol__52593CB8">
+            <End Role="College_Tbl" EntitySet="College_Tbl" />
+            <End Role="Student_tbl" EntitySet="Student_tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student_t__FKSem__5441852A" Association="Self.FK__Student_t__FKSem__5441852A">
+            <End Role="Semester_Tbl" EntitySet="Semester_Tbl" />
+            <End Role="Student_tbl" EntitySet="Student_tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student_t__FkYea__534D60F1" Association="Self.FK__Student_t__FkYea__534D60F1">
+            <End Role="Year_Tbl" EntitySet="Year_Tbl" />
+            <End Role="Student_tbl" EntitySet="Student_tbl" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Event_Management_SystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Booking_SeatInfo_tbl">
+          <Key>
+            <PropertyRef Name="bookingSeat_id" />
+          </Key>
+          <Property Name="bookingSeat_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_booking_id" Type="Int32" />
+          <Property Name="Created_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Created_by" Type="Int32" />
+          <NavigationProperty Name="BookingInfo_tbl" Relationship="Self.FK__Booking_S__fk_bo__68487DD7" FromRole="Booking_SeatInfo_tbl" ToRole="BookingInfo_tbl" />
+        </EntityType>
+        <EntityType Name="BookingInfo_tbl">
+          <Key>
+            <PropertyRef Name="Booking_id" />
+          </Key>
+          <Property Name="Booking_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_student_id" Type="Int32" />
+          <Property Name="fk_eventid" Type="Int32" />
+          <Property Name="booking_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="booking_time" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TotalbookSeat" Type="Int32" Nullable="false" />
+          <Property Name="TotalPrice" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Created_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Created_by" Type="Int32" />
+          <NavigationProperty Name="Booking_SeatInfo_tbl" Relationship="Self.FK__Booking_S__fk_bo__68487DD7" FromRole="BookingInfo_tbl" ToRole="Booking_SeatInfo_tbl" />
+          <NavigationProperty Name="Event_Tbl" Relationship="Self.FK__BookingIn__fk_ev__656C112C" FromRole="BookingInfo_tbl" ToRole="Event_Tbl" />
+          <NavigationProperty Name="Student_tbl" Relationship="Self.FK__BookingIn__fk_st__6477ECF3" FromRole="BookingInfo_tbl" ToRole="Student_tbl" />
+        </EntityType>
+        <EntityType Name="Branch_Tbl">
+          <Key>
+            <PropertyRef Name="Branch_id" />
+          </Key>
+          <Property Name="Branch_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Branch" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Created_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Created_by" Type="Int32" />
+        </EntityType>
+        <EntityType Name="College_Tbl">
+          <Key>
+            <PropertyRef Name="College_id" />
+          </Key>
+          <Property Name="College_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="College_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PinCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Created_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Created_by" Type="Int32" />
+          <NavigationProperty Name="EventLocationMaster_Tbl" Relationship="Self.FK__EventLoca__FKCol__59FA5E80" FromRole="College_Tbl" ToRole="EventLocationMaster_Tbl" />
+          <NavigationProperty Name="EventMaster_Tbl" Relationship="Self.FK__EventMast__FKCol__571DF1D5" FromRole="College_Tbl" ToRole="EventMaster_Tbl" />
+          <NavigationProperty Name="Student_tbl" Relationship="Self.FK__Student_t__FKCol__52593CB8" FromRole="College_Tbl" ToRole="Student_tbl" />
+        </EntityType>
+        <EntityType Name="Event_Tbl">
+          <Key>
+            <PropertyRef Name="Event_Id" />
+          </Key>
+          <Property Name="Event_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_Event_Mst_Id" Type="Int32" />
+          <Property Name="Event_FromDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Event_ToDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Event_FromTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Event_ToTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fk_Event_Loc_id" Type="Int32" />
+          <Property Name="PriceperSeat" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="maxSeatbookperuser" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Created_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Created_by" Type="Int32" />
+          <NavigationProperty Name="BookingInfo_tbl" Relationship="Self.FK__BookingIn__fk_ev__656C112C" FromRole="Event_Tbl" ToRole="BookingInfo_tbl" />
+          <NavigationProperty Name="EventMaster_Tbl" Relationship="Self.FK__Event_Tbl__FK_Ev__60A75C0F" FromRole="Event_Tbl" ToRole="EventMaster_Tbl" />
+          <NavigationProperty Name="EventLocationMaster_Tbl" Relationship="Self.FK__Event_Tbl__fk_Ev__619B8048" FromRole="Event_Tbl" ToRole="EventLocationMaster_Tbl" />
+        </EntityType>
+        <EntityType Name="EventLocationMaster_Tbl">
+          <Key>
+            <PropertyRef Name="EventLoc_ID" />
+          </Key>
+          <Property Name="EventLoc_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="No_of_Seat" Type="Int32" Nullable="false" />
+          <Property Name="No_Of_Row" Type="Int32" Nullable="false" />
+          <Property Name="FKCollege_ID" Type="Int32" />
+          <Property Name="Created_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Created_by" Type="Int32" />
+          <NavigationProperty Name="College_Tbl" Relationship="Self.FK__EventLoca__FKCol__59FA5E80" FromRole="EventLocationMaster_Tbl" ToRole="College_Tbl" />
+          <NavigationProperty Name="Event_Tbl" Relationship="Self.FK__Event_Tbl__fk_Ev__619B8048" FromRole="EventLocationMaster_Tbl" ToRole="Event_Tbl" />
+          <NavigationProperty Name="Seat_tbl" Relationship="Self.FK__Seat_tbl__FK_Eve__5CD6CB2B" FromRole="EventLocationMaster_Tbl" ToRole="Seat_tbl" />
+        </EntityType>
+        <EntityType Name="EventMaster_Tbl">
+          <Key>
+            <PropertyRef Name="Event_Id" />
+          </Key>
+          <Property Name="Event_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Event_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FKCollege_ID" Type="Int32" />
+          <Property Name="Created_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Created_by" Type="Int32" />
+          <NavigationProperty Name="College_Tbl" Relationship="Self.FK__EventMast__FKCol__571DF1D5" FromRole="EventMaster_Tbl" ToRole="College_Tbl" />
+          <NavigationProperty Name="Event_Tbl" Relationship="Self.FK__Event_Tbl__FK_Ev__60A75C0F" FromRole="EventMaster_Tbl" ToRole="Event_Tbl" />
+          <NavigationProperty Name="Seat_tbl" Relationship="Self.FK__Seat_tbl__fk_Eve__5DCAEF64" FromRole="EventMaster_Tbl" ToRole="Seat_tbl" />
+        </EntityType>
+        <EntityType Name="Seat_tbl">
+          <Key>
+            <PropertyRef Name="Seat_id" />
+          </Key>
+          <Property Name="Seat_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Seat_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Seat_row" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FK_EventLoc_ID" Type="Int32" />
+          <Property Name="fk_Even_Mst_id" Type="Int32" />
+          <NavigationProperty Name="EventLocationMaster_Tbl" Relationship="Self.FK__Seat_tbl__FK_Eve__5CD6CB2B" FromRole="Seat_tbl" ToRole="EventLocationMaster_Tbl" />
+          <NavigationProperty Name="EventMaster_Tbl" Relationship="Self.FK__Seat_tbl__fk_Eve__5DCAEF64" FromRole="Seat_tbl" ToRole="EventMaster_Tbl" />
+        </EntityType>
+        <EntityType Name="Semester_Tbl">
+          <Key>
+            <PropertyRef Name="Sem_id" />
+          </Key>
+          <Property Name="Sem_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sem_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Created_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Created_by" Type="Int32" />
+          <NavigationProperty Name="Student_tbl" Relationship="Self.FK__Student_t__FKSem__5441852A" FromRole="Semester_Tbl" ToRole="Student_tbl" />
+        </EntityType>
+        <EntityType Name="State_List">
+          <Key>
+            <PropertyRef Name="State_Id" />
+          </Key>
+          <Property Name="State_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="State_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Student_tbl">
+          <Key>
+            <PropertyRef Name="Student_id" />
+          </Key>
+          <Property Name="Student_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Student_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PinCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FKCollege_ID" Type="Int32" />
+          <Property Name="FkYearId" Type="Int32" />
+          <Property Name="FKSemID" Type="Int32" />
+          <Property Name="Created_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Created_by" Type="Int32" />
+          <NavigationProperty Name="BookingInfo_tbl" Relationship="Self.FK__BookingIn__fk_st__6477ECF3" FromRole="Student_tbl" ToRole="BookingInfo_tbl" />
+          <NavigationProperty Name="College_Tbl" Relationship="Self.FK__Student_t__FKCol__52593CB8" FromRole="Student_tbl" ToRole="College_Tbl" />
+          <NavigationProperty Name="Semester_Tbl" Relationship="Self.FK__Student_t__FKSem__5441852A" FromRole="Student_tbl" ToRole="Semester_Tbl" />
+          <NavigationProperty Name="Year_Tbl" Relationship="Self.FK__Student_t__FkYea__534D60F1" FromRole="Student_tbl" ToRole="Year_Tbl" />
+        </EntityType>
+        <EntityType Name="Year_Tbl">
+          <Key>
+            <PropertyRef Name="Year_id" />
+          </Key>
+          <Property Name="Year_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Year" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Created_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Created_by" Type="Int32" />
+          <NavigationProperty Name="Student_tbl" Relationship="Self.FK__Student_t__FkYea__534D60F1" FromRole="Year_Tbl" ToRole="Student_tbl" />
+        </EntityType>
+        <Association Name="FK__Booking_S__fk_bo__68487DD7">
+          <End Role="BookingInfo_tbl" Type="Self.BookingInfo_tbl" Multiplicity="0..1" />
+          <End Role="Booking_SeatInfo_tbl" Type="Self.Booking_SeatInfo_tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookingInfo_tbl">
+              <PropertyRef Name="Booking_id" />
+            </Principal>
+            <Dependent Role="Booking_SeatInfo_tbl">
+              <PropertyRef Name="fk_booking_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BookingIn__fk_ev__656C112C">
+          <End Role="Event_Tbl" Type="Self.Event_Tbl" Multiplicity="0..1" />
+          <End Role="BookingInfo_tbl" Type="Self.BookingInfo_tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Event_Tbl">
+              <PropertyRef Name="Event_Id" />
+            </Principal>
+            <Dependent Role="BookingInfo_tbl">
+              <PropertyRef Name="fk_eventid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BookingIn__fk_st__6477ECF3">
+          <End Role="Student_tbl" Type="Self.Student_tbl" Multiplicity="0..1" />
+          <End Role="BookingInfo_tbl" Type="Self.BookingInfo_tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student_tbl">
+              <PropertyRef Name="Student_id" />
+            </Principal>
+            <Dependent Role="BookingInfo_tbl">
+              <PropertyRef Name="fk_student_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EventLoca__FKCol__59FA5E80">
+          <End Role="College_Tbl" Type="Self.College_Tbl" Multiplicity="0..1" />
+          <End Role="EventLocationMaster_Tbl" Type="Self.EventLocationMaster_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="College_Tbl">
+              <PropertyRef Name="College_id" />
+            </Principal>
+            <Dependent Role="EventLocationMaster_Tbl">
+              <PropertyRef Name="FKCollege_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EventMast__FKCol__571DF1D5">
+          <End Role="College_Tbl" Type="Self.College_Tbl" Multiplicity="0..1" />
+          <End Role="EventMaster_Tbl" Type="Self.EventMaster_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="College_Tbl">
+              <PropertyRef Name="College_id" />
+            </Principal>
+            <Dependent Role="EventMaster_Tbl">
+              <PropertyRef Name="FKCollege_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Student_t__FKCol__52593CB8">
+          <End Role="College_Tbl" Type="Self.College_Tbl" Multiplicity="0..1" />
+          <End Role="Student_tbl" Type="Self.Student_tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="College_Tbl">
+              <PropertyRef Name="College_id" />
+            </Principal>
+            <Dependent Role="Student_tbl">
+              <PropertyRef Name="FKCollege_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Event_Tbl__FK_Ev__60A75C0F">
+          <End Role="EventMaster_Tbl" Type="Self.EventMaster_Tbl" Multiplicity="0..1" />
+          <End Role="Event_Tbl" Type="Self.Event_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EventMaster_Tbl">
+              <PropertyRef Name="Event_Id" />
+            </Principal>
+            <Dependent Role="Event_Tbl">
+              <PropertyRef Name="FK_Event_Mst_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Event_Tbl__fk_Ev__619B8048">
+          <End Role="EventLocationMaster_Tbl" Type="Self.EventLocationMaster_Tbl" Multiplicity="0..1" />
+          <End Role="Event_Tbl" Type="Self.Event_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EventLocationMaster_Tbl">
+              <PropertyRef Name="EventLoc_ID" />
+            </Principal>
+            <Dependent Role="Event_Tbl">
+              <PropertyRef Name="fk_Event_Loc_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Seat_tbl__FK_Eve__5CD6CB2B">
+          <End Role="EventLocationMaster_Tbl" Type="Self.EventLocationMaster_Tbl" Multiplicity="0..1" />
+          <End Role="Seat_tbl" Type="Self.Seat_tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EventLocationMaster_Tbl">
+              <PropertyRef Name="EventLoc_ID" />
+            </Principal>
+            <Dependent Role="Seat_tbl">
+              <PropertyRef Name="FK_EventLoc_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Seat_tbl__fk_Eve__5DCAEF64">
+          <End Role="EventMaster_Tbl" Type="Self.EventMaster_Tbl" Multiplicity="0..1" />
+          <End Role="Seat_tbl" Type="Self.Seat_tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EventMaster_Tbl">
+              <PropertyRef Name="Event_Id" />
+            </Principal>
+            <Dependent Role="Seat_tbl">
+              <PropertyRef Name="fk_Even_Mst_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Student_t__FKSem__5441852A">
+          <End Role="Semester_Tbl" Type="Self.Semester_Tbl" Multiplicity="0..1" />
+          <End Role="Student_tbl" Type="Self.Student_tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Semester_Tbl">
+              <PropertyRef Name="Sem_id" />
+            </Principal>
+            <Dependent Role="Student_tbl">
+              <PropertyRef Name="FKSemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Student_t__FkYea__534D60F1">
+          <End Role="Year_Tbl" Type="Self.Year_Tbl" Multiplicity="0..1" />
+          <End Role="Student_tbl" Type="Self.Student_tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Year_Tbl">
+              <PropertyRef Name="Year_id" />
+            </Principal>
+            <Dependent Role="Student_tbl">
+              <PropertyRef Name="FkYearId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Event_Management_SystemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Booking_SeatInfo_tbl" EntityType="Self.Booking_SeatInfo_tbl" />
+          <EntitySet Name="BookingInfo_tbl" EntityType="Self.BookingInfo_tbl" />
+          <EntitySet Name="Branch_Tbl" EntityType="Self.Branch_Tbl" />
+          <EntitySet Name="College_Tbl" EntityType="Self.College_Tbl" />
+          <EntitySet Name="Event_Tbl" EntityType="Self.Event_Tbl" />
+          <EntitySet Name="EventLocationMaster_Tbl" EntityType="Self.EventLocationMaster_Tbl" />
+          <EntitySet Name="EventMaster_Tbl" EntityType="Self.EventMaster_Tbl" />
+          <EntitySet Name="Seat_tbl" EntityType="Self.Seat_tbl" />
+          <EntitySet Name="Semester_Tbl" EntityType="Self.Semester_Tbl" />
+          <EntitySet Name="State_List" EntityType="Self.State_List" />
+          <EntitySet Name="Student_tbl" EntityType="Self.Student_tbl" />
+          <EntitySet Name="Year_Tbl" EntityType="Self.Year_Tbl" />
+          <AssociationSet Name="FK__Booking_S__fk_bo__68487DD7" Association="Self.FK__Booking_S__fk_bo__68487DD7">
+            <End Role="BookingInfo_tbl" EntitySet="BookingInfo_tbl" />
+            <End Role="Booking_SeatInfo_tbl" EntitySet="Booking_SeatInfo_tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BookingIn__fk_ev__656C112C" Association="Self.FK__BookingIn__fk_ev__656C112C">
+            <End Role="Event_Tbl" EntitySet="Event_Tbl" />
+            <End Role="BookingInfo_tbl" EntitySet="BookingInfo_tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BookingIn__fk_st__6477ECF3" Association="Self.FK__BookingIn__fk_st__6477ECF3">
+            <End Role="Student_tbl" EntitySet="Student_tbl" />
+            <End Role="BookingInfo_tbl" EntitySet="BookingInfo_tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EventLoca__FKCol__59FA5E80" Association="Self.FK__EventLoca__FKCol__59FA5E80">
+            <End Role="College_Tbl" EntitySet="College_Tbl" />
+            <End Role="EventLocationMaster_Tbl" EntitySet="EventLocationMaster_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EventMast__FKCol__571DF1D5" Association="Self.FK__EventMast__FKCol__571DF1D5">
+            <End Role="College_Tbl" EntitySet="College_Tbl" />
+            <End Role="EventMaster_Tbl" EntitySet="EventMaster_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student_t__FKCol__52593CB8" Association="Self.FK__Student_t__FKCol__52593CB8">
+            <End Role="College_Tbl" EntitySet="College_Tbl" />
+            <End Role="Student_tbl" EntitySet="Student_tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Event_Tbl__FK_Ev__60A75C0F" Association="Self.FK__Event_Tbl__FK_Ev__60A75C0F">
+            <End Role="EventMaster_Tbl" EntitySet="EventMaster_Tbl" />
+            <End Role="Event_Tbl" EntitySet="Event_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Event_Tbl__fk_Ev__619B8048" Association="Self.FK__Event_Tbl__fk_Ev__619B8048">
+            <End Role="EventLocationMaster_Tbl" EntitySet="EventLocationMaster_Tbl" />
+            <End Role="Event_Tbl" EntitySet="Event_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Seat_tbl__FK_Eve__5CD6CB2B" Association="Self.FK__Seat_tbl__FK_Eve__5CD6CB2B">
+            <End Role="EventLocationMaster_Tbl" EntitySet="EventLocationMaster_Tbl" />
+            <End Role="Seat_tbl" EntitySet="Seat_tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Seat_tbl__fk_Eve__5DCAEF64" Association="Self.FK__Seat_tbl__fk_Eve__5DCAEF64">
+            <End Role="EventMaster_Tbl" EntitySet="EventMaster_Tbl" />
+            <End Role="Seat_tbl" EntitySet="Seat_tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student_t__FKSem__5441852A" Association="Self.FK__Student_t__FKSem__5441852A">
+            <End Role="Semester_Tbl" EntitySet="Semester_Tbl" />
+            <End Role="Student_tbl" EntitySet="Student_tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student_t__FkYea__534D60F1" Association="Self.FK__Student_t__FkYea__534D60F1">
+            <End Role="Year_Tbl" EntitySet="Year_Tbl" />
+            <End Role="Student_tbl" EntitySet="Student_tbl" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Event_Management_SystemModelStoreContainer" CdmEntityContainer="Event_Management_SystemEntities">
+          <EntitySetMapping Name="Booking_SeatInfo_tbl">
+            <EntityTypeMapping TypeName="Event_Management_SystemModel.Booking_SeatInfo_tbl">
+              <MappingFragment StoreEntitySet="Booking_SeatInfo_tbl">
+                <ScalarProperty Name="bookingSeat_id" ColumnName="bookingSeat_id" />
+                <ScalarProperty Name="fk_booking_id" ColumnName="fk_booking_id" />
+                <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
+                <ScalarProperty Name="Created_by" ColumnName="Created_by" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookingInfo_tbl">
+            <EntityTypeMapping TypeName="Event_Management_SystemModel.BookingInfo_tbl">
+              <MappingFragment StoreEntitySet="BookingInfo_tbl">
+                <ScalarProperty Name="Booking_id" ColumnName="Booking_id" />
+                <ScalarProperty Name="fk_student_id" ColumnName="fk_student_id" />
+                <ScalarProperty Name="fk_eventid" ColumnName="fk_eventid" />
+                <ScalarProperty Name="booking_date" ColumnName="booking_date" />
+                <ScalarProperty Name="booking_time" ColumnName="booking_time" />
+                <ScalarProperty Name="TotalbookSeat" ColumnName="TotalbookSeat" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
+                <ScalarProperty Name="Created_by" ColumnName="Created_by" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Branch_Tbl">
+            <EntityTypeMapping TypeName="Event_Management_SystemModel.Branch_Tbl">
+              <MappingFragment StoreEntitySet="Branch_Tbl">
+                <ScalarProperty Name="Branch_id" ColumnName="Branch_id" />
+                <ScalarProperty Name="Branch" ColumnName="Branch" />
+                <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
+                <ScalarProperty Name="Created_by" ColumnName="Created_by" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="College_Tbl">
+            <EntityTypeMapping TypeName="Event_Management_SystemModel.College_Tbl">
+              <MappingFragment StoreEntitySet="College_Tbl">
+                <ScalarProperty Name="College_id" ColumnName="College_id" />
+                <ScalarProperty Name="College_Name" ColumnName="College_Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+                <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
+                <ScalarProperty Name="Created_by" ColumnName="Created_by" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Event_Tbl">
+            <EntityTypeMapping TypeName="Event_Management_SystemModel.Event_Tbl">
+              <MappingFragment StoreEntitySet="Event_Tbl">
+                <ScalarProperty Name="Event_Id" ColumnName="Event_Id" />
+                <ScalarProperty Name="FK_Event_Mst_Id" ColumnName="FK_Event_Mst_Id" />
+                <ScalarProperty Name="Event_FromDate" ColumnName="Event_FromDate" />
+                <ScalarProperty Name="Event_ToDate" ColumnName="Event_ToDate" />
+                <ScalarProperty Name="Event_FromTime" ColumnName="Event_FromTime" />
+                <ScalarProperty Name="Event_ToTime" ColumnName="Event_ToTime" />
+                <ScalarProperty Name="fk_Event_Loc_id" ColumnName="fk_Event_Loc_id" />
+                <ScalarProperty Name="PriceperSeat" ColumnName="PriceperSeat" />
+                <ScalarProperty Name="maxSeatbookperuser" ColumnName="maxSeatbookperuser" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
+                <ScalarProperty Name="Created_by" ColumnName="Created_by" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventLocationMaster_Tbl">
+            <EntityTypeMapping TypeName="Event_Management_SystemModel.EventLocationMaster_Tbl">
+              <MappingFragment StoreEntitySet="EventLocationMaster_Tbl">
+                <ScalarProperty Name="EventLoc_ID" ColumnName="EventLoc_ID" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="No_of_Seat" ColumnName="No_of_Seat" />
+                <ScalarProperty Name="No_Of_Row" ColumnName="No_Of_Row" />
+                <ScalarProperty Name="FKCollege_ID" ColumnName="FKCollege_ID" />
+                <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
+                <ScalarProperty Name="Created_by" ColumnName="Created_by" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventMaster_Tbl">
+            <EntityTypeMapping TypeName="Event_Management_SystemModel.EventMaster_Tbl">
+              <MappingFragment StoreEntitySet="EventMaster_Tbl">
+                <ScalarProperty Name="Event_Id" ColumnName="Event_Id" />
+                <ScalarProperty Name="Event_Name" ColumnName="Event_Name" />
+                <ScalarProperty Name="FKCollege_ID" ColumnName="FKCollege_ID" />
+                <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
+                <ScalarProperty Name="Created_by" ColumnName="Created_by" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Seat_tbl">
+            <EntityTypeMapping TypeName="Event_Management_SystemModel.Seat_tbl">
+              <MappingFragment StoreEntitySet="Seat_tbl">
+                <ScalarProperty Name="Seat_id" ColumnName="Seat_id" />
+                <ScalarProperty Name="Seat_Name" ColumnName="Seat_Name" />
+                <ScalarProperty Name="Seat_row" ColumnName="Seat_row" />
+                <ScalarProperty Name="FK_EventLoc_ID" ColumnName="FK_EventLoc_ID" />
+                <ScalarProperty Name="fk_Even_Mst_id" ColumnName="fk_Even_Mst_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Semester_Tbl">
+            <EntityTypeMapping TypeName="Event_Management_SystemModel.Semester_Tbl">
+              <MappingFragment StoreEntitySet="Semester_Tbl">
+                <ScalarProperty Name="Sem_id" ColumnName="Sem_id" />
+                <ScalarProperty Name="Sem_Name" ColumnName="Sem_Name" />
+                <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
+                <ScalarProperty Name="Created_by" ColumnName="Created_by" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="State_List">
+            <EntityTypeMapping TypeName="Event_Management_SystemModel.State_List">
+              <MappingFragment StoreEntitySet="State_List">
+                <ScalarProperty Name="State_Id" ColumnName="State_Id" />
+                <ScalarProperty Name="State_Name" ColumnName="State_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Student_tbl">
+            <EntityTypeMapping TypeName="Event_Management_SystemModel.Student_tbl">
+              <MappingFragment StoreEntitySet="Student_tbl">
+                <ScalarProperty Name="Student_id" ColumnName="Student_id" />
+                <ScalarProperty Name="Student_Code" ColumnName="Student_Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="FKCollege_ID" ColumnName="FKCollege_ID" />
+                <ScalarProperty Name="FkYearId" ColumnName="FkYearId" />
+                <ScalarProperty Name="FKSemID" ColumnName="FKSemID" />
+                <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
+                <ScalarProperty Name="Created_by" ColumnName="Created_by" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Year_Tbl">
+            <EntityTypeMapping TypeName="Event_Management_SystemModel.Year_Tbl">
+              <MappingFragment StoreEntitySet="Year_Tbl">
+                <ScalarProperty Name="Year_id" ColumnName="Year_id" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
+                <ScalarProperty Name="Created_by" ColumnName="Created_by" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

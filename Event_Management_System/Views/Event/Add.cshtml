@@ -1,0 +1,76 @@
+﻿@model Event_Management_System.Models.EventVM
+@{
+    ViewBag.Title = "Add";
+}
+
+<h2>Add Event</h2>
+
+@using (Html.BeginForm("AddEvent", "Event", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-6">
+            <label>Event Name</label>
+            @Html.DropDownListFor(x => x.Event_Id, ViewBag.EvtMstData as SelectList,"--Select Event---" ,new { @class = "form-control", @type = "date" })
+        </div>
+        <div class="col-md-6">
+            <label>Event Location</label>
+            @Html.DropDownListFor(x => x.EventLoc_ID, ViewBag.LocData as SelectList,"--Select Location--" ,new { @class = "form-control", @type = "date" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label>Event From Date</label>
+            @Html.TextBoxFor(x => x.Event_FromDate, new { @class = "form-control", @type = "date" })
+        </div>
+        <div class="col-md-6">
+            <label>Event To Date</label>
+            @Html.TextBoxFor(x => x.Event_ToDate, new { @class = "form-control", @type = "date" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label>Event From Time</label>
+            @Html.TextBoxFor(x => x.Event_FromTime, new { @class = "form-control" })
+        </div>
+        <div class="col-md-6">
+            <label>Event To Time</label>
+            @Html.TextBoxFor(x => x.Event_ToTime, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label>Priceper Seat</label>
+            @Html.TextBoxFor(x => x.PriceperSeat, new { @class = "form-control", @type = "number" })
+        </div>
+        <div class="col-md-6">
+            <label>Max Seat Book Per User</label>
+            @Html.TextBoxFor(x => x.maxSeatbookperuser, new { @class = "form-control", @type = "number" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label>Price</label>
+            @Html.TextBoxFor(x => x.Price, new { @class = "form-control", @type = "number" })
+        </div>
+        @*<div class="col-md-6">
+                <label>Created Date</label>
+                @Html.TextBoxFor(x => x.Created_Date, new { @class = "form-control", @type = "date" })
+            </div>*@
+    </div>
+
+    <div class="row">
+        @*<div class="col-md-7">
+                <label>Created By</label>
+                @Html.TextBoxFor(x => x.Created_by, new { @class = "form-control", @type = "number" })
+            </div>*@
+        <div class="col-md-5">
+            <input type="submit" value="Save" class="btn btn-success mt-3" />
+            <a href="/Event/Index" class="btn btn-secondary mt-3">Back</a>
+        </div>
+    </div>
+}
+

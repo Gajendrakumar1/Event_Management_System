@@ -1,0 +1,33 @@
+﻿@model Event_Management_System.Models.Booking_SeatInfo_tbl
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Add Book Seat Info</h2>
+
+@using (Html.BeginForm("UpdateBookSeat", "Booking_SeatInfo", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.bookingSeat_id)
+    <div class="row">
+        @*<div class="col-md-6">
+            <label>Created Date</label>
+            @Html.TextBoxFor(x => x.Created_Date, new { @class = "form-control", @type = "date" })
+        </div>
+        <div class="col-md-6">
+            <label>Created By</label>
+            @Html.TextBoxFor(x => x.Created_by, new { @class = "form-control", @type = "number" })
+        </div>*@
+    </div>
+
+    <div class="row">
+        <div class="col-md-7">
+
+        </div>
+        <div class="col-md-5">
+            <input type="submit" value="Update" class="btn btn-success mt-3" />
+            <a href="/Booking_SeatInfo/Index" class="btn btn-secondary mt-3">Back</a>
+        </div>
+    </div>
+}
+
