@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Event_Management_SystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Event_Management_SystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Booking_SeatInfo_tbl">
           <Key>
             <PropertyRef Name="bookingSeat_id" />
@@ -78,6 +78,8 @@
           <Property Name="FKCollege_ID" Type="int" />
           <Property Name="Created_Date" Type="datetime" Nullable="false" />
           <Property Name="Created_by" Type="int" />
+          <Property Name="Seattype" Type="varchar" MaxLength="50" />
+          <Property Name="rowvalue" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="EventMaster_Tbl">
           <Key>
@@ -95,9 +97,10 @@
           </Key>
           <Property Name="Seat_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Seat_Name" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Seat_row" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Seat_row" Type="varchar" MaxLength="50" />
           <Property Name="FK_EventLoc_ID" Type="int" />
           <Property Name="fk_Even_Mst_id" Type="int" />
+          <Property Name="ISAVAIL" Type="int" />
         </EntityType>
         <EntityType Name="Semester_Tbl">
           <Key>
@@ -349,8 +352,7 @@
             <End Role="Student_tbl" EntitySet="Student_tbl" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Event_Management_SystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -402,9 +404,9 @@
           <Property Name="PinCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Created_Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Created_by" Type="Int32" />
-          <NavigationProperty Name="EventLocationMaster_Tbl" Relationship="Self.FK__EventLoca__FKCol__59FA5E80" FromRole="College_Tbl" ToRole="EventLocationMaster_Tbl" />
           <NavigationProperty Name="EventMaster_Tbl" Relationship="Self.FK__EventMast__FKCol__571DF1D5" FromRole="College_Tbl" ToRole="EventMaster_Tbl" />
           <NavigationProperty Name="Student_tbl" Relationship="Self.FK__Student_t__FKCol__52593CB8" FromRole="College_Tbl" ToRole="Student_tbl" />
+          <NavigationProperty Name="EventLocationMaster_Tbl" Relationship="Event_Management_SystemModel.FK__EventLoca__FKCol__59FA5E80" FromRole="College_Tbl" ToRole="EventLocationMaster_Tbl" />
         </EntityType>
         <EntityType Name="Event_Tbl">
           <Key>
@@ -424,22 +426,7 @@
           <Property Name="Created_by" Type="Int32" />
           <NavigationProperty Name="BookingInfo_tbl" Relationship="Self.FK__BookingIn__fk_ev__656C112C" FromRole="Event_Tbl" ToRole="BookingInfo_tbl" />
           <NavigationProperty Name="EventMaster_Tbl" Relationship="Self.FK__Event_Tbl__FK_Ev__60A75C0F" FromRole="Event_Tbl" ToRole="EventMaster_Tbl" />
-          <NavigationProperty Name="EventLocationMaster_Tbl" Relationship="Self.FK__Event_Tbl__fk_Ev__619B8048" FromRole="Event_Tbl" ToRole="EventLocationMaster_Tbl" />
-        </EntityType>
-        <EntityType Name="EventLocationMaster_Tbl">
-          <Key>
-            <PropertyRef Name="EventLoc_ID" />
-          </Key>
-          <Property Name="EventLoc_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="No_of_Seat" Type="Int32" Nullable="false" />
-          <Property Name="No_Of_Row" Type="Int32" Nullable="false" />
-          <Property Name="FKCollege_ID" Type="Int32" />
-          <Property Name="Created_Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Created_by" Type="Int32" />
-          <NavigationProperty Name="College_Tbl" Relationship="Self.FK__EventLoca__FKCol__59FA5E80" FromRole="EventLocationMaster_Tbl" ToRole="College_Tbl" />
-          <NavigationProperty Name="Event_Tbl" Relationship="Self.FK__Event_Tbl__fk_Ev__619B8048" FromRole="EventLocationMaster_Tbl" ToRole="Event_Tbl" />
-          <NavigationProperty Name="Seat_tbl" Relationship="Self.FK__Seat_tbl__FK_Eve__5CD6CB2B" FromRole="EventLocationMaster_Tbl" ToRole="Seat_tbl" />
+          <NavigationProperty Name="EventLocationMaster_Tbl" Relationship="Event_Management_SystemModel.FK__Event_Tbl__fk_Ev__619B8048" FromRole="Event_Tbl" ToRole="EventLocationMaster_Tbl" />
         </EntityType>
         <EntityType Name="EventMaster_Tbl">
           <Key>
@@ -460,11 +447,12 @@
           </Key>
           <Property Name="Seat_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Seat_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Seat_row" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Seat_row" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FK_EventLoc_ID" Type="Int32" />
           <Property Name="fk_Even_Mst_id" Type="Int32" />
-          <NavigationProperty Name="EventLocationMaster_Tbl" Relationship="Self.FK__Seat_tbl__FK_Eve__5CD6CB2B" FromRole="Seat_tbl" ToRole="EventLocationMaster_Tbl" />
           <NavigationProperty Name="EventMaster_Tbl" Relationship="Self.FK__Seat_tbl__fk_Eve__5DCAEF64" FromRole="Seat_tbl" ToRole="EventMaster_Tbl" />
+          <Property Name="ISAVAIL" Type="Int32" />
+          <NavigationProperty Name="EventLocationMaster_Tbl" Relationship="Event_Management_SystemModel.FK__Seat_tbl__FK_Eve__5CD6CB2B" FromRole="Seat_tbl" ToRole="EventLocationMaster_Tbl" />
         </EntityType>
         <EntityType Name="Semester_Tbl">
           <Key>
@@ -552,18 +540,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EventLoca__FKCol__59FA5E80">
-          <End Role="College_Tbl" Type="Self.College_Tbl" Multiplicity="0..1" />
-          <End Role="EventLocationMaster_Tbl" Type="Self.EventLocationMaster_Tbl" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="College_Tbl">
-              <PropertyRef Name="College_id" />
-            </Principal>
-            <Dependent Role="EventLocationMaster_Tbl">
-              <PropertyRef Name="FKCollege_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__EventMast__FKCol__571DF1D5">
           <End Role="College_Tbl" Type="Self.College_Tbl" Multiplicity="0..1" />
           <End Role="EventMaster_Tbl" Type="Self.EventMaster_Tbl" Multiplicity="*" />
@@ -597,30 +573,6 @@
             </Principal>
             <Dependent Role="Event_Tbl">
               <PropertyRef Name="FK_Event_Mst_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Event_Tbl__fk_Ev__619B8048">
-          <End Role="EventLocationMaster_Tbl" Type="Self.EventLocationMaster_Tbl" Multiplicity="0..1" />
-          <End Role="Event_Tbl" Type="Self.Event_Tbl" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EventLocationMaster_Tbl">
-              <PropertyRef Name="EventLoc_ID" />
-            </Principal>
-            <Dependent Role="Event_Tbl">
-              <PropertyRef Name="fk_Event_Loc_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Seat_tbl__FK_Eve__5CD6CB2B">
-          <End Role="EventLocationMaster_Tbl" Type="Self.EventLocationMaster_Tbl" Multiplicity="0..1" />
-          <End Role="Seat_tbl" Type="Self.Seat_tbl" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EventLocationMaster_Tbl">
-              <PropertyRef Name="EventLoc_ID" />
-            </Principal>
-            <Dependent Role="Seat_tbl">
-              <PropertyRef Name="FK_EventLoc_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -666,7 +618,6 @@
           <EntitySet Name="Branch_Tbl" EntityType="Self.Branch_Tbl" />
           <EntitySet Name="College_Tbl" EntityType="Self.College_Tbl" />
           <EntitySet Name="Event_Tbl" EntityType="Self.Event_Tbl" />
-          <EntitySet Name="EventLocationMaster_Tbl" EntityType="Self.EventLocationMaster_Tbl" />
           <EntitySet Name="EventMaster_Tbl" EntityType="Self.EventMaster_Tbl" />
           <EntitySet Name="Seat_tbl" EntityType="Self.Seat_tbl" />
           <EntitySet Name="Semester_Tbl" EntityType="Self.Semester_Tbl" />
@@ -685,10 +636,6 @@
             <End Role="Student_tbl" EntitySet="Student_tbl" />
             <End Role="BookingInfo_tbl" EntitySet="BookingInfo_tbl" />
           </AssociationSet>
-          <AssociationSet Name="FK__EventLoca__FKCol__59FA5E80" Association="Self.FK__EventLoca__FKCol__59FA5E80">
-            <End Role="College_Tbl" EntitySet="College_Tbl" />
-            <End Role="EventLocationMaster_Tbl" EntitySet="EventLocationMaster_Tbl" />
-          </AssociationSet>
           <AssociationSet Name="FK__EventMast__FKCol__571DF1D5" Association="Self.FK__EventMast__FKCol__571DF1D5">
             <End Role="College_Tbl" EntitySet="College_Tbl" />
             <End Role="EventMaster_Tbl" EntitySet="EventMaster_Tbl" />
@@ -700,14 +647,6 @@
           <AssociationSet Name="FK__Event_Tbl__FK_Ev__60A75C0F" Association="Self.FK__Event_Tbl__FK_Ev__60A75C0F">
             <End Role="EventMaster_Tbl" EntitySet="EventMaster_Tbl" />
             <End Role="Event_Tbl" EntitySet="Event_Tbl" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Event_Tbl__fk_Ev__619B8048" Association="Self.FK__Event_Tbl__fk_Ev__619B8048">
-            <End Role="EventLocationMaster_Tbl" EntitySet="EventLocationMaster_Tbl" />
-            <End Role="Event_Tbl" EntitySet="Event_Tbl" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Seat_tbl__FK_Eve__5CD6CB2B" Association="Self.FK__Seat_tbl__FK_Eve__5CD6CB2B">
-            <End Role="EventLocationMaster_Tbl" EntitySet="EventLocationMaster_Tbl" />
-            <End Role="Seat_tbl" EntitySet="Seat_tbl" />
           </AssociationSet>
           <AssociationSet Name="FK__Seat_tbl__fk_Eve__5DCAEF64" Association="Self.FK__Seat_tbl__fk_Eve__5DCAEF64">
             <End Role="EventMaster_Tbl" EntitySet="EventMaster_Tbl" />
@@ -721,7 +660,73 @@
             <End Role="Year_Tbl" EntitySet="Year_Tbl" />
             <End Role="Student_tbl" EntitySet="Student_tbl" />
           </AssociationSet>
+          <EntitySet Name="EventLocationMaster_Tbl" EntityType="Event_Management_SystemModel.EventLocationMaster_Tbl" />
+          <AssociationSet Name="FK__EventLoca__FKCol__59FA5E80" Association="Event_Management_SystemModel.FK__EventLoca__FKCol__59FA5E80">
+            <End Role="College_Tbl" EntitySet="College_Tbl" />
+            <End Role="EventLocationMaster_Tbl" EntitySet="EventLocationMaster_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Event_Tbl__fk_Ev__619B8048" Association="Event_Management_SystemModel.FK__Event_Tbl__fk_Ev__619B8048">
+            <End Role="EventLocationMaster_Tbl" EntitySet="EventLocationMaster_Tbl" />
+            <End Role="Event_Tbl" EntitySet="Event_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Seat_tbl__FK_Eve__5CD6CB2B" Association="Event_Management_SystemModel.FK__Seat_tbl__FK_Eve__5CD6CB2B">
+            <End Role="EventLocationMaster_Tbl" EntitySet="EventLocationMaster_Tbl" />
+            <End Role="Seat_tbl" EntitySet="Seat_tbl" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="EventLocationMaster_Tbl">
+          <Key>
+            <PropertyRef Name="EventLoc_ID" />
+          </Key>
+          <Property Name="EventLoc_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Location" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="No_of_Seat" Type="Int32" Nullable="false" />
+          <Property Name="No_Of_Row" Type="Int32" Nullable="false" />
+          <Property Name="FKCollege_ID" Type="Int32" />
+          <Property Name="Created_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Created_by" Type="Int32" />
+          <Property Name="Seattype" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="rowvalue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="College_Tbl" Relationship="Event_Management_SystemModel.FK__EventLoca__FKCol__59FA5E80" FromRole="EventLocationMaster_Tbl" ToRole="College_Tbl" />
+          <NavigationProperty Name="Event_Tbl" Relationship="Event_Management_SystemModel.FK__Event_Tbl__fk_Ev__619B8048" FromRole="EventLocationMaster_Tbl" ToRole="Event_Tbl" />
+          <NavigationProperty Name="Seat_tbl" Relationship="Event_Management_SystemModel.FK__Seat_tbl__FK_Eve__5CD6CB2B" FromRole="EventLocationMaster_Tbl" ToRole="Seat_tbl" />
+        </EntityType>
+        <Association Name="FK__EventLoca__FKCol__59FA5E80">
+          <End Type="Event_Management_SystemModel.College_Tbl" Role="College_Tbl" Multiplicity="0..1" />
+          <End Type="Event_Management_SystemModel.EventLocationMaster_Tbl" Role="EventLocationMaster_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="College_Tbl">
+              <PropertyRef Name="College_id" />
+            </Principal>
+            <Dependent Role="EventLocationMaster_Tbl">
+              <PropertyRef Name="FKCollege_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Event_Tbl__fk_Ev__619B8048">
+          <End Type="Event_Management_SystemModel.EventLocationMaster_Tbl" Role="EventLocationMaster_Tbl" Multiplicity="0..1" />
+          <End Type="Event_Management_SystemModel.Event_Tbl" Role="Event_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EventLocationMaster_Tbl">
+              <PropertyRef Name="EventLoc_ID" />
+            </Principal>
+            <Dependent Role="Event_Tbl">
+              <PropertyRef Name="fk_Event_Loc_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Seat_tbl__FK_Eve__5CD6CB2B">
+          <End Type="Event_Management_SystemModel.EventLocationMaster_Tbl" Role="EventLocationMaster_Tbl" Multiplicity="0..1" />
+          <End Type="Event_Management_SystemModel.Seat_tbl" Role="Seat_tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EventLocationMaster_Tbl">
+              <PropertyRef Name="EventLoc_ID" />
+            </Principal>
+            <Dependent Role="Seat_tbl">
+              <PropertyRef Name="FK_EventLoc_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -795,19 +800,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="EventLocationMaster_Tbl">
-            <EntityTypeMapping TypeName="Event_Management_SystemModel.EventLocationMaster_Tbl">
-              <MappingFragment StoreEntitySet="EventLocationMaster_Tbl">
-                <ScalarProperty Name="EventLoc_ID" ColumnName="EventLoc_ID" />
-                <ScalarProperty Name="Location" ColumnName="Location" />
-                <ScalarProperty Name="No_of_Seat" ColumnName="No_of_Seat" />
-                <ScalarProperty Name="No_Of_Row" ColumnName="No_Of_Row" />
-                <ScalarProperty Name="FKCollege_ID" ColumnName="FKCollege_ID" />
-                <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
-                <ScalarProperty Name="Created_by" ColumnName="Created_by" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="EventMaster_Tbl">
             <EntityTypeMapping TypeName="Event_Management_SystemModel.EventMaster_Tbl">
               <MappingFragment StoreEntitySet="EventMaster_Tbl">
@@ -822,6 +814,7 @@
           <EntitySetMapping Name="Seat_tbl">
             <EntityTypeMapping TypeName="Event_Management_SystemModel.Seat_tbl">
               <MappingFragment StoreEntitySet="Seat_tbl">
+                <ScalarProperty Name="ISAVAIL" ColumnName="ISAVAIL" />
                 <ScalarProperty Name="Seat_id" ColumnName="Seat_id" />
                 <ScalarProperty Name="Seat_Name" ColumnName="Seat_Name" />
                 <ScalarProperty Name="Seat_row" ColumnName="Seat_row" />
@@ -875,6 +868,21 @@
                 <ScalarProperty Name="Year" ColumnName="Year" />
                 <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
                 <ScalarProperty Name="Created_by" ColumnName="Created_by" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventLocationMaster_Tbl">
+            <EntityTypeMapping TypeName="Event_Management_SystemModel.EventLocationMaster_Tbl">
+              <MappingFragment StoreEntitySet="EventLocationMaster_Tbl">
+                <ScalarProperty Name="rowvalue" ColumnName="rowvalue" />
+                <ScalarProperty Name="Seattype" ColumnName="Seattype" />
+                <ScalarProperty Name="Created_by" ColumnName="Created_by" />
+                <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
+                <ScalarProperty Name="FKCollege_ID" ColumnName="FKCollege_ID" />
+                <ScalarProperty Name="No_Of_Row" ColumnName="No_Of_Row" />
+                <ScalarProperty Name="No_of_Seat" ColumnName="No_of_Seat" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="EventLoc_ID" ColumnName="EventLoc_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

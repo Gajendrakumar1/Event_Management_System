@@ -2,10 +2,45 @@
 
 @{
     ViewBag.Title = "Index";
+    var seats = ViewBag.Seats as Dictionary<string, List<Event_Management_System.Models.Seat>>;
 }
 
 <h2>Index</h2>
+<style>
+    .seat-chart {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
+    .row {
+        display: flex;
+        margin-bottom: 5px;
+    }
+
+    .seat {
+        width: 40px;
+        height: 40px;
+        margin: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #4CAF50;
+        color: white;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .seat.selected {
+            background-color: #f44336;
+        }
+
+        .seat.disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+</style>
 <div class="row mt-5">
     <div class="col-md-6">
         <h3>Event Location Details</h3>
@@ -33,27 +68,70 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.College_Tbl.College_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Location)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.No_of_Seat)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.No_Of_Row)
-        </td>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.College_Tbl.College_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.No_of_Seat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.No_Of_Row)
+            </td>
 
 
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.EventLoc_ID }) |
-            @Html.ActionLink("Delete", "Remove", new { id = item.EventLoc_ID })
-        </td>
-    </tr>
-}
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.EventLoc_ID }) |
+                @Html.ActionLink("Delete", "Remove", new { id = item.EventLoc_ID })
+            </td>
+        </tr>
+    }
 
 </table>
+
+<h2>Seat Layout</h2>
+
+<div class="seat-chart">
+    <form id="seatForm" action="@Url.Action("Book", "EventLocationMaster")" method="post">
+        @if (seats != null)
+        {
+            foreach (var row in seats)
+            {
+                <div class="row">
+                    @foreach (var seat in row.Value)
+                    {
+                        <div class="seat" data-seat-id="@seat.Label">
+                            @seat.Label
+                        </div>
+                    }
+                </div>
+            }
+        }
+        <input type="hidden" name="selectedSeats" id="selectedSeats" />
+        <button type="submit">Book</button>
+    </form>
+</div>
+
+<script>
+    document.querySelectorAll('.seat').forEach(seat => {
+        seat.addEventListener('click', function () {
+            if (!seat.classList.contains('disabled')) {
+                seat.classList.toggle('selected');
+                updateSelectedSeats();
+            }
+        });
+    });
+
+    function updateSelectedSeats() {
+        const selectedSeats = [];
+        document.querySelectorAll('.seat.selected').forEach(seat => {
+            selectedSeats.push(seat.getAttribute('data-seat-id'));
+        });
+        document.getElementById('selectedSeats').value = selectedSeats.join(',');
+    }
+</script>

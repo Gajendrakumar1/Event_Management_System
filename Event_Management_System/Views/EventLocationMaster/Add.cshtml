@@ -1,20 +1,62 @@
 ﻿@model Event_Management_System.Models.EvtLocationCollegeVM
 @{
     ViewBag.Title = "Add";
+    // Define your static values
+    var dropdownList = new List<SelectListItem>
+{
+         new SelectListItem { Value = "0", Text = "<--Select Option-->" },
+        new SelectListItem { Value = "Equal", Text = "Equal" },
+        new SelectListItem { Value = "Un-Equal", Text = "Un-Equal" }
+    };
+    var seats = ViewBag.Seats as Dictionary<string, List<Event_Management_System.Models.Seat>>;
 }
 
 <h2>Add Event Location</h2>
+<style>
+    .seat-chart {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
-@using (Html.BeginForm("AddEvtLocation", "EventLocationMaster", FormMethod.Post))
-{
+    .row {
+        display: flex;
+        margin-bottom: 5px;
+    }
+
+    .seat {
+        width: 40px;
+        height: 40px;
+        margin: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #4CAF50;
+        color: white;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .seat.selected {
+            background-color: #f44336;
+        }
+
+        .seat.disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+</style>
+@*@using (Html.BeginForm("AddEvtLocation", "EventLocationMaster", FormMethod.Post))
+{*@
     <div class="row">
         <div class="col-md-6">
             <label>College Name</label>
-            @Html.DropDownListFor(x => x.College_id, ViewBag.CollegeData as SelectList, "--Select College--", new { @class = "form-control" })
+            @Html.DropDownListFor(x => x.College_id, ViewBag.CollegeData as SelectList, "--Select College--", new { @class = "form-control", @id = "ddlCollege" })
         </div>
         <div class="col-md-6">
             <label>Location</label>
-            @Html.TextBoxFor(x => x.Location, new { @class = "form-control" })
+            @Html.TextBoxFor(x => x.Location, new { id = "Location", @class = "form-control" })
         </div>
 
     </div>
@@ -22,25 +64,431 @@
     <div class="row">
         <div class="col-md-6">
             <label>No Of Seats</label>
-            @Html.TextBoxFor(x => x.No_of_Seat, new { @class = "form-control", @type = "number" })
+            @Html.TextBoxFor(x => x.No_of_Seat, new { id = "totalSeats", @class = "form-control", @type = "number", min = "0" })
         </div>
         <div class="col-md-6">
             <label>No Of Rows</label>
-            @Html.TextBoxFor(x => x.No_Of_Row, new { @class = "form-control", @type = "number" })
+            @Html.TextBoxFor(x => x.No_Of_Row, new { id = "numberOfRows", @class = "form-control", @type = "number", min = "0" })
+
+
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label>SeatType</label>
 
+            @Html.DropDownList("Seattype", dropdownList, htmlAttributes: new { @class = "form-control", @id = "ddlSeattype" })
+        </div>
+        <div class="col-md-6">
+            <label></label>
+            <button type="button" id="generateTextBoxes" class="btn btn-primary" style="margin-top:10px">Generate Rows</button>
+            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+
+        </div>
+        <div class="col-md-6">
+            <div id="divborder" style="margin-top:10px;border-style:solid;">
+                <div id="dynamicTextBoxes"  style="margin:12px;"></div>
+            </div>
+            <div id="validationResult">
+                <label id="totalSumLabel" style="display: block; margin-top: 10px;">Total Sum: 0</label>
+                <span id="validationMessage" style="color: red; display: none;">Number mismatch</span>
+            </div>
+        </div>
+        <div class="col-md-3">
+
+        </div>
+    </div>
+    <div id="DivEqual" class="row">
+            @*<div class="col-md-12">
+                <h2>Seat Layout</h2>
+
+                <div class="seat-chart">*@
+                    @*<form id="seatForm" action="@Url.Action("Book", "EventLocationMaster")" method="post">*@
+                        @*@if (seats != null)
+                        {
+                            foreach (var row in seats)
+                            {
+                                <div class="row">
+                                    @foreach (var seat in row.Value)
+                                    {
+                                        <div class="seat" data-seat-id="@seat.Label">
+                                            @seat.Label
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        }*@
+                        @*<input type="hidden" name="selectedSeats" id="selectedSeats" />*@
+                        @*<button type="submit">Book</button>*@
+                    @*</form>*@
+                @*</div>
+
+                
+            </div>*@
+        </div>
+<div id="dynamicTextBoxes"></div>
     <div class="row">
         @*<div class="col-md-7">
-            <label>Created By</label>
-            @Html.TextBoxFor(x => x.Created_by, new { @class = "form-control", @type = "number" })
-        </div>*@
+                <label>Created By</label>
+                @Html.TextBoxFor(x => x.Created_by, new { @class = "form-control", @type = "number" })
+            </div>*@
         <div class="col-md-6">
-            <input type="submit" value="Save" class="btn btn-success mt-3" />
+            <input type="submit" value="Save" id="btnsave" class="btn btn-success mt-3" />
             <a href="/EventLocationMaster/Index" class="btn btn-secondary mt-3">Back</a>
         </div>
     </div>
 
-    
-}
+
+@*}*@
+@*</script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#generateTextBoxes').click(function () {
+                var numberOfRows = $('#No_Of_Row').val();
+                var container = $('#dynamicTextBoxes');
+                container.empty(); // Clear any existing textboxes
+
+                for (var i = 0; i < numberOfRows; i++) {
+                    container.append('<div>Row ' + (i + 1) + ': <input type="text" name="SeatsPerRow[' + i + ']" class="form-control" style="width:100px;" /></div>');
+                }
+            });
+        });
+    </script>*@
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#generateTextBoxes').hide();
+        $('#totalSumLabel').hide();
+        $('#divborder').hide();
+        $('#DivEqual').hide();
+
+
+        $('#ddlSeattype').change(function () {
+            var catid = $(this).val();
+            //  generateTextBoxes
+            if (catid == 'Equal') {
+                $('#generateTextBoxes').hide();
+                $('#totalSumLabel').hide();
+                $('#dynamicTextBoxes').hide();
+                $('#divborder').hide();
+                //alert('Equal');
+                var numberOfRows = $('#numberOfRows').val();
+                var totalSeats = $('#totalSeats').val();
+                var vnumberOfRows = parseInt(numberOfRows, 10);
+                var vtotalSeats = parseInt(totalSeats, 10);
+                var vseatsPerRow = totalSeats / vnumberOfRows;
+                $.ajax({
+                    url: '@Url.Action("GetSeatEqual", "EventLocationMaster")',
+                    type: 'GET',
+                    data: { numRows: vnumberOfRows, seatsPerRow: vseatsPerRow  },
+                    //data: { rowsvalues: rowvalues },
+                    type: "Get",
+
+                    success: function (data) {
+                        $('#DivEqual').show();
+                        $('#DivEqual').empty(); // Clear existing content
+
+                        // Generate HTML dynamically
+                        var html = '<div class="row"><div class="col-md-12"><h3>Seat Layout</h3><div class="seat-chart">';
+                        var x = 0;
+                        for (var i = 0; i < totalSeats; i++) {
+                            x = x + vseatsPerRow;
+                            html += '<div class="row">';
+                            for (var j = i; j < x; j++) {
+                                seatLabel = data[j].Label;
+                                if (j == x - 1) {
+                                    i = j;
+                                }
+                                html += '<div class="seat" id="LblRows'+(j+1) + '">' + seatLabel + '</div>';
+                            }
+                            html += '</div>';
+                        }
+
+
+                          //// Iterate over the grouped data
+                          //$.each(data, function (Row, Label) {
+                          //    html += '<div class="row">';
+                          //    $.each(Label, function (index, Label) {
+                          //        var seatLabel = Label;
+                          //        html += '<div class="seat" data-seat-id="' + seatLabel + '">' + Row + seatLabel + '</div>';
+                          //    });
+                          //    html += '</div>';
+                          //});
+
+                          html += '<input type="hidden" name="selectedSeats" id="selectedSeats" />';
+                          html += '</div></div></div>';
+
+                          $('#DivEqual').html(html); // Insert the new HTML into the container
+                      },
+                      error: function (xhr, status, error) {
+                          console.error('Error fetching seat data:', error);
+                      }
+                  });
+            }
+            else {
+                $('#DivEqual').hide();
+                $('#generateTextBoxes').hide();
+                $('#dynamicTextBoxes').show();
+                $('#totalSumLabel').show();
+              //  alert('ok-generateTextBoxes');
+                var numberOfRows = $('#numberOfRows').val();
+                var container = $('#dynamicTextBoxes');
+                var totalSeats = $('#totalSeats').val();
+                container.empty(); // Clear any existing textboxes
+                $('#divborder').show();
+                if (numberOfRows <= 0 || totalSeats <= 0) {
+                    alert('Please enter valid numbers for rows and seats.');
+                    return;
+                }
+                //var columnsPerRow = Math.ceil(numberOfRows / numberOfRows);
+                //var totalTextBoxes = numberOfRows * columnsPerRow;
+                var noofrow1 = 2;
+                // var columnsPerRow = Math.ceil(numberOfRows / noofrow1);
+                var columnsPerRow = numberOfRows / noofrow1;
+                var totalTextBoxes = numberOfRows;
+
+                if (columnsPerRow % 1 !== 0) {
+
+                    noofrow1 += 1;
+                    columnsPerRow = columnsPerRow - 1;
+                }
+                //for (var i = 0; i < numberOfRows; i++) {
+                //    container.append('<div>Row ' + (i + 1) + ': <input type="number" class="form-control seatInput" style="width:100px;" /></div>');
+                //}
+                var chechrow = 0;
+                for (var i = 0; i < noofrow1; i++) {
+                    var rowHtml = '<div class="row">';
+                    for (var j = 0; j < columnsPerRow; j++) {
+                        if (i == 0 && j == 0) {
+                            chechrow = j + 1;
+                        }
+                        else {
+                            chechrow = chechrow + 1;
+                        }
+                        if (chechrow <= numberOfRows) {
+
+
+                            rowHtml += '<div class="col">Row ' + (chechrow) + ':<input type="number" min = "0"  id = "TxtRows' + (chechrow) + '" class="form-control seatInput" style="margin-bottom: 5px;" /></div>';
+                        }
+                    }
+                    rowHtml += '</div>';
+                    container.append(rowHtml);
+                }
+                //alert('ok--1');
+                // Reset validation message
+                $('#validationMessage').hide();
+                $('#totalSumLabel').text('Total Sum: 0');
+            }
+
+            //alert(catid);
+        });
+        $('#generateTextBoxes').click(function () {
+            alert('ok-generateTextBoxes');
+            var numberOfRows = $('#numberOfRows').val();
+            var container = $('#dynamicTextBoxes');
+            var totalSeats = $('#totalSeats').val();
+            container.empty(); // Clear any existing textboxes
+            $('#divborder').show();
+            if (numberOfRows <= 0 || totalSeats <= 0) {
+                alert('Please enter valid numbers for rows and seats.');
+                return;
+            }
+            //var columnsPerRow = Math.ceil(numberOfRows / numberOfRows);
+            //var totalTextBoxes = numberOfRows * columnsPerRow;
+            var noofrow1 = 2;
+            // var columnsPerRow = Math.ceil(numberOfRows / noofrow1);
+            var columnsPerRow = numberOfRows / noofrow1;
+            var totalTextBoxes = numberOfRows;
+
+            if (columnsPerRow % 1 !== 0) {
+
+                noofrow1 += 1;
+                columnsPerRow = columnsPerRow - 1;
+            }
+            //for (var i = 0; i < numberOfRows; i++) {
+            //    container.append('<div>Row ' + (i + 1) + ': <input type="number" class="form-control seatInput" style="width:100px;" /></div>');
+            //}
+            var chechrow = 0;
+            for (var i = 0; i < noofrow1; i++) {
+                var rowHtml = '<div class="row">';
+                for (var j = 0; j < columnsPerRow; j++) {
+                    if (i == 0 && j == 0) {
+                        chechrow = j + 1;
+                    }
+                    else {
+                        chechrow = chechrow + 1;
+                    }
+                    if (chechrow <= numberOfRows) {
+
+
+                        rowHtml += '<div class="col">Row ' + (chechrow) + ':<input type="number" id = "TxtRows'+(chechrow) +'" class="form-control seatInput" style="margin-bottom: 5px;" /></div>';
+                    }
+                }
+                rowHtml += '</div>';
+                container.append(rowHtml);
+            }
+            //alert('ok--1');
+            // Reset validation message
+            $('#validationMessage').hide();
+            $('#totalSumLabel').text('Total Sum: 0');
+        });
+
+        $(document).on('input', '.seatInput', function () {
+            validateAndCalculate();
+        });
+
+        function validateAndCalculate() {
+            var totalSeats = parseInt($('#totalSeats').val()) || 0;
+            var totalSum = 0;
+            var allFilled = true;
+
+            $('.seatInput').each(function () {
+                var value = $(this).val();
+                if (value === '') {
+                    allFilled = false;
+                } else {
+                    totalSum += parseInt(value) || 0;
+                }
+            });
+
+            $('#totalSumLabel').text('Total Sum: ' + totalSum);
+
+            if (allFilled) {
+                if (totalSum === totalSeats) {
+                    $('#validationMessage').hide();
+                    $('#validationMessage').css('color', 'green').text('Total seats match').show();
+                } else {
+                    $('#validationMessage').hide();
+                    $('#validationMessage').css('color', 'red').text('Number mismatch').show();
+                    //  alert('The total number of seats does not match the sum of seats per row.');
+                }
+            } else {
+                $('#validationMessage').hide();
+            }
+        }
+
+        $('#btnsave').click(function () {
+            alert('SAVEME');
+
+            var chkseattype = $('#ddlSeattype').val();
+
+            College = $('#ddlCollege').val();
+            nLocation = $('#Location').val();
+            totalSeats = $('#totalSeats').val();
+            numberOfRows = $('#numberOfRows').val();
+            ddlSeattype = $('#ddlSeattype').val();
+            var vseatsPerRow = totalSeats / numberOfRows;
+            //  generateTextBoxes
+            if (chkseattype == 'Equal') {
+                var chkrownum = 0;
+                var chkitration = 0;
+                var rowvalues = ''; // Initialize an empty string to store row values
+
+                for (var i = 0; i < totalSeats; i++) {
+                    chkitration++;
+                    if (i == 0) {
+                        chkrownum = chkrownum + 1
+                        chkitration = 0;
+                    }
+                    else if (chkitration == vseatsPerRow) {
+                        chkrownum = chkrownum + 1
+                        chkitration = 0;
+                    }
+                    var catid = $('#LblRows' + (i + 1)).text(); // Get the value of each textbox
+                    // Check if the value is not empty
+                    if (catid !== '') {
+                        if (rowvalues === '') {
+                            rowvalues = chkrownum + '-' + catid; // For the first value, just assign it
+                        } else {
+                            rowvalues += ',' + chkrownum + '-' + catid; // For subsequent values, append with a comma
+                        }
+                    }
+                }
+                 // Output the comma-separated values
+                 console.log(rowvalues);
+                 alert(rowvalues);
+                 //SaveSeatDetails
+
+                    $.ajax({
+                        url: '@Url.Action("SaveSeatDetailsEqual", "EventLocationMaster")',
+                        type: 'GET',
+                        data: { vCollege: College, vLocation: nLocation, vtotalSeats: totalSeats, vnumberOfRows: numberOfRows, vddlSeattype: ddlSeattype, rowsvalues: rowvalues },
+                        //data: { rowsvalues: rowvalues },
+                        type: "Get",
+
+                        success: function (data) {
+                            //var aa = json.stringify(data);
+                            alert('OKSAVE');
+
+                        }
+                    });
+
+            }
+            else {
+
+                var rowvalues = ''; // Initialize an empty string to store row values
+
+                for (var i = 0; i < numberOfRows; i++) {
+                    var catid = $('#TxtRows' + (i + 1)).val(); // Get the value of each textbox
+
+                    // Check if the value is not empty
+                    if (catid !== '') {
+                        if (rowvalues === '') {
+                            rowvalues = catid; // For the first value, just assign it
+                        } else {
+                            rowvalues += ',' + catid; // For subsequent values, append with a comma
+                        }
+                    }
+                }
+
+             // Output the comma-separated values
+             console.log(rowvalues);
+             alert(rowvalues);
+             //SaveSeatDetails
+
+                $.ajax({
+                    url: '@Url.Action("SaveSeatDetails", "EventLocationMaster")',
+                    type: 'GET',
+                    data: { vCollege: College, vLocation: nLocation, vtotalSeats: totalSeats, vnumberOfRows: numberOfRows, vddlSeattype: ddlSeattype, rowsvalues: rowvalues },
+                    //data: { rowsvalues: rowvalues },
+                    type: "Get",
+
+                    success: function (data) {
+                        //var aa = json.stringify(data);
+                        alert('OKSAVE');
+
+                    }
+                });
+            }
+
+        });
+    });
+</script>
+
+
+
+<script>
+    document.querySelectorAll('.seat').forEach(seat => {
+        seat.addEventListener('click', function () {
+            if (!seat.classList.contains('disabled')) {
+                seat.classList.toggle('selected');
+                updateSelectedSeats();
+            }
+        });
+    });
+
+    function updateSelectedSeats() {
+        const selectedSeats = [];
+        document.querySelectorAll('.seat.selected').forEach(seat => {
+            selectedSeats.push(seat.getAttribute('data-seat-id'));
+        });
+        document.getElementById('selectedSeats').value = selectedSeats.join(',');
+    }
+</script>
 

@@ -1,0 +1,120 @@
+﻿@model Event_Management_System.Models.EvtLocationCollegeVM
+@{
+    ViewBag.Title = "Add";
+    // Define your static values
+    var dropdownList = new List<SelectListItem>
+{
+         new SelectListItem { Value = "0", Text = "<--Select Option-->" },
+        new SelectListItem { Value = "1", Text = "Equal" },
+        new SelectListItem { Value = "2", Text = "Un-Equal" }
+    };
+    var seats = ViewBag.Seats as Dictionary<string, List<Event_Management_System.Models.Seat>>;
+}
+
+<h2>Enter Number of Seats for Each Row</h2>
+
+<form id="seatForm" method="post" action="@Url.Action("ValidateSeating", "Seat")">
+    <div>
+        <label for="totalSeats">Total Number of Seats:</label>
+        @Html.TextBoxFor(m => m.No_of_Seat, new { id = "totalSeats", @class = "form-control", @style = "width:100px;" })
+    </div>
+    <div>
+        <label for="numberOfRows">Number of Rows:</label>
+        @Html.TextBoxFor(m => m.No_Of_Row, new { id = "numberOfRows", @class = "form-control", @style = "width:100px;" })
+    </div>
+    <button type="button" id="generateTextBoxes" class="btn btn-primary">Generate Textboxes</button>
+    <div id="dynamicTextBoxes"></div>
+    <div id="validationResult">
+        <label id="totalSumLabel" style="display: block; margin-top: 10px;">Total Sum: 0</label>
+        <span id="validationMessage" style="color: red; display: none;">Number mismatch</span>
+    </div>
+    <input type="submit" value="Submit" class="btn btn-success" />
+</form>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#generateTextBoxes').click(function () {
+            var numberOfRows = $('#numberOfRows').val();
+            var container = $('#dynamicTextBoxes');
+            var totalSeats = $('#totalSeats').val();
+            container.empty(); // Clear any existing textboxes
+            if (numberOfRows <= 0 || totalSeats <= 0) {
+                alert('Please enter valid numbers for rows and seats.');
+                return;
+            }
+            //var columnsPerRow = Math.ceil(numberOfRows / numberOfRows);
+            //var totalTextBoxes = numberOfRows * columnsPerRow;
+            var noofrow1 = 2;
+            // var columnsPerRow = Math.ceil(numberOfRows / noofrow1);
+            var columnsPerRow = numberOfRows / noofrow1;
+            var totalTextBoxes = numberOfRows;
+
+            if (columnsPerRow % 1 !== 0) {
+               
+                noofrow1 += 1;
+                columnsPerRow = columnsPerRow - 1;
+            }
+            //for (var i = 0; i < numberOfRows; i++) {
+            //    container.append('<div>Row ' + (i + 1) + ': <input type="number" class="form-control seatInput" style="width:100px;" /></div>');
+            //}
+            var chechrow = 0;
+            for (var i = 0; i < noofrow1; i++) {
+                var rowHtml = '<div class="row">';
+                for (var j = 0; j < columnsPerRow; j++) {
+                    if (i == 0 && j == 0) {
+                        chechrow = j + 1;
+                    }
+                    else {
+                        chechrow = chechrow + 1;
+                    }
+                    if (chechrow <= numberOfRows) {
+
+
+                        rowHtml += '<div class="col">Row ' + (chechrow) + ':<input type="number" class="form-control seatInput" style="margin-bottom: 5px;" /></div>';
+                    }
+                }
+                rowHtml += '</div>';
+                container.append(rowHtml);
+            }
+
+            // Reset validation message
+            $('#validationMessage').hide();
+            $('#totalSumLabel').text('Total Sum: 0');
+        });
+
+        $(document).on('input', '.seatInput', function () {
+            validateAndCalculate();
+        });
+
+        function validateAndCalculate() {
+            var totalSeats = parseInt($('#totalSeats').val()) || 0;
+            var totalSum = 0;
+            var allFilled = true;
+
+            $('.seatInput').each(function () {
+                var value = $(this).val();
+                if (value === '') {
+                    allFilled = false;
+                } else {
+                    totalSum += parseInt(value) || 0;
+                }
+            });
+
+            $('#totalSumLabel').text('Total Sum: ' + totalSum);
+
+            if (allFilled) {
+                if (totalSum === totalSeats) {
+                    $('#validationMessage').hide();
+                    $('#validationMessage').css('color', 'green').text('Total seats match').show();
+                } else {
+                    $('#validationMessage').hide();
+                    $('#validationMessage').css('color', 'red').text('Number mismatch').show();
+                  //  alert('The total number of seats does not match the sum of seats per row.');
+                }
+            } else {
+                $('#validationMessage').hide();
+            }
+        }
+    });
+</script>
