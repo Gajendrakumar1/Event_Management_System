@@ -17,5 +17,6 @@ namespace Event_Management_System.Models
 
         public int College_id { get; set; }
         public string College_Name { get; set; }
+        public string Seattype { get; set; }
     }
 }

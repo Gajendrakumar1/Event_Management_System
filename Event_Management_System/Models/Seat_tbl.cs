@@ -19,8 +19,9 @@ namespace Event_Management_System.Models
         public string Seat_row { get; set; }
         public Nullable<int> FK_EventLoc_ID { get; set; }
         public Nullable<int> fk_Even_Mst_id { get; set; }
+        public Nullable<int> ISAVAIL { get; set; }
     
-        public virtual EventLocationMaster_Tbl EventLocationMaster_Tbl { get; set; }
         public virtual EventMaster_Tbl EventMaster_Tbl { get; set; }
+        public virtual EventLocationMaster_Tbl EventLocationMaster_Tbl { get; set; }
     }
 }

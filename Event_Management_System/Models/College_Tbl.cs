@@ -17,9 +17,9 @@ namespace Event_Management_System.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public College_Tbl()
         {
-            this.EventLocationMaster_Tbl = new HashSet<EventLocationMaster_Tbl>();
             this.EventMaster_Tbl = new HashSet<EventMaster_Tbl>();
             this.Student_tbl = new HashSet<Student_tbl>();
+            this.EventLocationMaster_Tbl = new HashSet<EventLocationMaster_Tbl>();
         }
     
         public int College_id { get; set; }
@@ -32,10 +32,10 @@ namespace Event_Management_System.Models
         public Nullable<int> Created_by { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EventLocationMaster_Tbl> EventLocationMaster_Tbl { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EventMaster_Tbl> EventMaster_Tbl { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Student_tbl> Student_tbl { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EventLocationMaster_Tbl> EventLocationMaster_Tbl { get; set; }
     }
 }

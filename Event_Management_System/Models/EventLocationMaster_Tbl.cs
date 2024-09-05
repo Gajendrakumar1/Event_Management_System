@@ -28,6 +28,8 @@ namespace Event_Management_System.Models
         public Nullable<int> FKCollege_ID { get; set; }
         public System.DateTime Created_Date { get; set; }
         public Nullable<int> Created_by { get; set; }
+        public string Seattype { get; set; }
+        public string rowvalue { get; set; }
     
         public virtual College_Tbl College_Tbl { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

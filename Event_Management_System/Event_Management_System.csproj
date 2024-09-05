@@ -135,6 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Models\BookingInfo_tbl.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -191,6 +192,7 @@
     <Compile Include="Models\EventCollegeVM.cs" />
     <Compile Include="Models\EventVM.cs" />
     <Compile Include="Models\EvtLocationCollegeVM.cs" />
+    <Compile Include="Models\Seat.cs" />
     <Compile Include="Models\SeatEvtLocVM.cs" />
     <Compile Include="Models\States.cs" />
     <Compile Include="Models\StudentVM.cs" />
@@ -281,6 +283,7 @@
     <Content Include="Views\Booking_SeatInfo\Edit.cshtml" />
     <Content Include="Views\Shared\_Master.cshtml" />
     <Content Include="Views\LoginPage\Login.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
