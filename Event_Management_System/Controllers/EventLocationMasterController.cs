@@ -17,10 +17,11 @@ namespace Event_Management_System.Controllers
         // GET: EventLocationMaster
         public ActionResult Index()
         {
-            var seats = GenerateSeats(10, 10);
-            //UnEqualGenerateSeats();
-
-           // return View(groupedSeats);
+             var seats = GenerateSeats(10, 10); // 10 rows, 10 seats per row
+            var groupedSeats = seats
+                .GroupBy(s => s.Row)
+                .ToDictionary(g => g.Key, g => g.ToList());
+            ViewBag.Seats = groupedSeats;
 
             using (Event_Management_SystemEntities db = new Event_Management_SystemEntities())
             {

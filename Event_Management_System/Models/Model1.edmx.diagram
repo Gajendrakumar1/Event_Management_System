@@ -4,32 +4,34 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9e2f9c6d65c84e6093541f01d32ac1df" Name="Diagram1">
+      <Diagram DiagramId="9e2f9c6d65c84e6093541f01d32ac1df" Name="Diagram1" ZoomLevel="86">
         <EntityTypeShape EntityType="Event_Management_SystemModel.Booking_SeatInfo_tbl" Width="1.5" PointX="10.5" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Event_Management_SystemModel.BookingInfo_tbl" Width="1.5" PointX="8.25" PointY="4.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Event_Management_SystemModel.Branch_Tbl" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Event_Management_SystemModel.College_Tbl" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Event_Management_SystemModel.Event_Tbl" Width="1.5" PointX="5.25" PointY="7.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Event_Management_SystemModel.EventMaster_Tbl" Width="1.5" PointX="3" PointY="10" IsExpanded="true" />
         <EntityTypeShape EntityType="Event_Management_SystemModel.Seat_tbl" Width="1.5" PointX="8.25" PointY="8.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Event_Management_SystemModel.Semester_Tbl" Width="1.5" PointX="3.75" PointY="2" IsExpanded="true" />
         <EntityTypeShape EntityType="Event_Management_SystemModel.State_List" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Event_Management_SystemModel.Student_tbl" Width="1.5" PointX="6" PointY="2.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Event_Management_SystemModel.Year_Tbl" Width="1.5" PointX="3.75" PointY="13.75" IsExpanded="true" />
-        <AssociationConnector Association="Event_Management_SystemModel.FK__Booking_S__fk_bo__68487DD7" ManuallyRouted="false" />
-        <AssociationConnector Association="Event_Management_SystemModel.FK__BookingIn__fk_ev__656C112C" ManuallyRouted="false" />
-        <AssociationConnector Association="Event_Management_SystemModel.FK__BookingIn__fk_st__6477ECF3" ManuallyRouted="false" />
-        <AssociationConnector Association="Event_Management_SystemModel.FK__EventMast__FKCol__571DF1D5" ManuallyRouted="false" />
-        <AssociationConnector Association="Event_Management_SystemModel.FK__Student_t__FKCol__52593CB8" ManuallyRouted="false" />
         <AssociationConnector Association="Event_Management_SystemModel.FK__Event_Tbl__FK_Ev__60A75C0F" ManuallyRouted="false" />
         <AssociationConnector Association="Event_Management_SystemModel.FK__Seat_tbl__fk_Eve__5DCAEF64" ManuallyRouted="false" />
-        <AssociationConnector Association="Event_Management_SystemModel.FK__Student_t__FKSem__5441852A" ManuallyRouted="false" />
-        <AssociationConnector Association="Event_Management_SystemModel.FK__Student_t__FkYea__534D60F1" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="Event_Management_SystemModel.EventLocationMaster_Tbl" Width="1.5" PointX="3" PointY="5.75" />
-        <AssociationConnector Association="Event_Management_SystemModel.FK__EventLoca__FKCol__59FA5E80" />
+        <EntityTypeShape EntityType="Event_Management_SystemModel.BookingInfo_tbl" Width="1.5" PointX="8.25" PointY="4" />
+        <EntityTypeShape EntityType="Event_Management_SystemModel.EventLocationMaster_Tbl" Width="1.5" PointX="3" PointY="5.625" />
+        <AssociationConnector Association="Event_Management_SystemModel.FK__Booking_S__fk_bo__68487DD7" />
+        <AssociationConnector Association="Event_Management_SystemModel.FK_Booking_SeatInfo_tbl_Seat_tbl" />
+        <AssociationConnector Association="Event_Management_SystemModel.FK__BookingIn__fk_ev__656C112C" />
+        <AssociationConnector Association="Event_Management_SystemModel.FK_BookingInfo_tbl_EventLocationMaster_Tbl" />
         <AssociationConnector Association="Event_Management_SystemModel.FK__Event_Tbl__fk_Ev__619B8048" />
         <AssociationConnector Association="Event_Management_SystemModel.FK__Seat_tbl__FK_Eve__5CD6CB2B" />
-      </Diagram>
+        <EntityTypeShape EntityType="Event_Management_SystemModel.College_Tbl" Width="1.5" PointX="0.75" PointY="6.5" />
+        <EntityTypeShape EntityType="Event_Management_SystemModel.Student_tbl" Width="1.5" PointX="6" PointY="1.5" />
+        <AssociationConnector Association="Event_Management_SystemModel.FK__BookingIn__fk_st__6477ECF3" />
+        <AssociationConnector Association="Event_Management_SystemModel.FK__EventLoca__FKCol__59FA5E80" />
+        <AssociationConnector Association="Event_Management_SystemModel.FK__EventMast__FKCol__571DF1D5" />
+        <AssociationConnector Association="Event_Management_SystemModel.FK__Student_t__FKCol__52593CB8" />
+        <AssociationConnector Association="Event_Management_SystemModel.FK__Student_t__FKSem__5441852A" />
+        <AssociationConnector Association="Event_Management_SystemModel.FK__Student_t__FkYea__534D60F1" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

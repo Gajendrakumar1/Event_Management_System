@@ -4,44 +4,313 @@
 }
 
 <h2>Add Book Info</h2>
+<style>
+    .seat-chart {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
-@using (Html.BeginForm("AddBookInfo", "BookingInfo", FormMethod.Post))
-{
+    .row {
+        display: flex;
+        margin-bottom: 5px;
+    }
+
+    .seat {
+        width: 40px;
+        height: 40px;
+        margin: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #4CAF50;
+        color: white;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .seat.selected {
+            background-color: #f44336;
+        }
+
+        .seat.disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+</style>
+
     <div class="row">
         <div class="col-md-6">
             <label>Event Name</label>
-            @Html.DropDownListFor(x => x.Event_Id , ViewBag.EvtMstData as SelectList, "--Select Event--" ,new { @class = "form-control", @type = "date" })
+            @Html.DropDownListFor(x => x.Event_Id, ViewBag.EvtMstData as SelectList, "--Select Event--", new { @class = "form-control", @id = "ddlEvent" })
+
         </div>
         <div class="col-md-6">
-            <label>Booking date</label>
-            @Html.TextBoxFor(x => x.booking_date, new { @class = "form-control", @type = "date" })
+            <label>Location Name</label>
+            @Html.DropDownListFor(x => x.Event_Id, ViewBag.EvtMstData as SelectList, "--Select Location--", new { @class = "form-control", @id = "ddlLoc" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label>Event Date</label>
+            @Html.TextBoxFor(x => x.TotalPrice, new { @class = "form-control", id = "txtEventDate" })
+        </div>
+        <div class="col-md-6">
+            <label>Event Time</label>
+            @Html.TextBoxFor(x => x.TotalbookSeat, new { @class = "form-control", id = "txtEventTime" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label>Price/Seat</label>
+            @Html.TextBoxFor(x => x.TotalPrice, new { @class = "form-control", id = "txtPriceperseat" })
+        </div>
+        <div class="col-md-6">
+            <label>Booking Limit</label>
+            @Html.TextBoxFor(x => x.TotalbookSeat, new { @class = "form-control", id = "txtbookinglimit" })
         </div>
 
     </div>
-
     <div class="row">
-        <div class="col-md-6">
-            <label>Booking Time</label>
-            @Html.TextBoxFor(x => x.booking_time, new { @class = "form-control" })
+        <div class="col-md-3">
+            <input type="hidden" name="Eventmstid" id="txtEventmstid">
+        </div>
+        <div class="col-md-3">
+            <label>Your Booking Price</label>
+            @Html.TextBoxFor(x => x.TotalPrice, new { @class = "form-control", id = "txtTotalbookingPrice" })
         </div>
         <div class="col-md-6">
-            <label>Total Book Seat</label>
-            @Html.TextBoxFor(x => x.TotalbookSeat, new { @class = "form-control", @type = "number" })
-        </div>
-
-    </div>
-
-    <div class="row">
-        <div class="col-md-6">
-            <label>Total Price</label>
-            @Html.TextBoxFor(x => x.TotalPrice, new { @class = "form-control", @type = "number" })
-        </div>
-        <div class="col-md-6">
-            <input type="submit" value="Save" class="btn btn-success mt-3" />
+            <input type="submit" value="Save" id="btnsave" class="btn btn-success mt-3" />
             <a href="/BookingInfo/Index" class="btn btn-secondary mt-3">Back</a>
         </div>
+
+    </div>
+    <div class="row">
+        <div id="DivEqual" class="row">
+        </div>
+        <div class="col-md-6">
+           
+        </div>
     </div>
 
-    
-}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+       // alert('ok');
+        $('.seat').on('click', selectseat);
+        $('#ddlEvent').change(function () {
+            var Eventid = $(this).val();
+         //   alert(Eventid);
+            $.ajax({
+                url: '@Url.Action("GetSubcat", "BookingInfo")',
+                type: 'GET',
+                // data: { vCollege: College, vLocation: nLocation, vtotalSeats: totalSeats, vnumberOfRows: numberOfRows, vddlSeattype: ddlSeattype, rowsvalues: rowvalues },
+                data: { categoryid: Eventid },
+                type: "Get",
+                success: function (data) {
+                    //var aa = json.stringify(data);
+                    //  alert('OK');
+                    var Location = $('#ddlLoc');
+                    Location.empty();
+                    Location.append($('<option></option>').val('').html('Select Location'));
+                    for (var i = 0; i < data.length; i++) {
+                        Location.append($('<option></option>').val(data[i].EventLoc_ID).html(data[i].Location));
+                    }
+                }
+            });
+        });
+
+        $('#ddlLoc').change(function () {
+            var Eventid = $(this).val();
+            $('#txtTotalbookingPrice').val('');
+            //alert(Eventid);
+            $.ajax({
+                url: '@Url.Action("GetSeatDetails", "BookingInfo")',
+                type: 'GET',
+               // data: { vCollege: College, vLocation: nLocation, vtotalSeats: totalSeats, vnumberOfRows: numberOfRows, vddlSeattype: ddlSeattype, rowsvalues: rowvalues },
+                data: { vEventid: Eventid },
+                type: "Get",
+                success: function (data) {
+                   // alert('OKSAVE');
+                    $('#DivEqual').show();
+                    $('#DivEqual').empty(); // Clear existing content
+                    var myJSON = JSON.stringify(data);
+                    //alert(myJSON);
+                    var vnumberOfRows = parseInt(data[0].No_Of_Row, 10);
+                    var vtotalSeats = parseInt(data[0].No_of_Seat, 10);
+                    var vseatsPerRow = vtotalSeats / vnumberOfRows;
+                   // alert(data[0].SeatID);
+                    var html = '<div class="row"><div class="col-md-12"><h3>Seat Layout</h3><div class="seat-chart">';
+                    var x = 0;
+                    var segments = data[0].Seat_Name.split(',');
+                    var eventFromDate = data[0].Event_FromDate.split(' ');
+                    $('#txtEventmstid').val(data[0].Event_Id);
+                    $('#txtEventDate').val(eventFromDate[0]);
+                    $("#txtEventDate").prop("disabled", true); // Disable
+                    var eventTime = data[0].Event_FromTime + " TO " + data[0].Event_ToTime;
+                    $('#txtEventTime').val(eventTime);
+                    $("#txtEventTime").prop("disabled", true); // Disable
+                    $('#txtPriceperseat').val(data[0].PriceperSeat);
+                    $("#txtPriceperseat").prop("disabled", true); // Disable
+                    $('#txtbookinglimit').val(data[0].maxSeatbookperuser);
+                    $("#txtbookinglimit").prop("disabled", true); // Disable
+                    //document.getElementById('txtEventDate').value = eventFromDate[0];
+                    // alert(eventFromDate);
+                    //txtEventTime
+                    //txtPriceperseat
+                    //txtbookinglimit
+                    // Process each segment
+                    //var result = segments.map(function (segment) {
+                    //    // Split each segment by dashes
+                    //    return segment.split('-');
+                    //});
+                    //alert(result);
+                    var x = 0;
+                    var a = 0;
+                    if (data[0].Seattype == "Equal") {
+                        for (var k = 0; k < vtotalSeats; k++) {
+                            //var parts = data[k].Seat_Name.split('-');
+                            html += '<div class="row">';
+                            for (var j = 0; j < vseatsPerRow; j++) {
+                                var parts = segments[x].split('-');
+                                seatLabel = parts[1];
+                                html += '<div class="seat" id="LblRows' + (x + 1) + '" onclick="selectseat(this);" data-hidden-value="' + parts[0] + '" >' + seatLabel + '</div>';
+                                x = x + 1;
+                            }
+                            k = k + (vseatsPerRow - 1);
+                            html += '</div>';
+                        }
+                        html += '<input type="hidden" name="selectedSeats" id="selectedSeats" />';
+                        html += '</div></div></div>';
+                    }
+                    else {
+                        var nrowvalue = data[0].rowvalue.split(',');
+                        for (var k = 0; k < vtotalSeats; k++) {
+                            //var parts = data[k].Seat_Name.split('-');
+                            html += '<div class="row">';
+                            for (var j = 0; j < nrowvalue[a]; j++) {
+                                var parts = segments[x].split('-');
+                                seatLabel = parts[1];
+                                html += '<div class="seat" id="LblRows' + (x + 1) + '" onclick="selectseat(this);"  data-hidden-value="' + parts[0] + '" >' + seatLabel + '</div>';
+                                x = x + 1;
+                            }
+                            k = k + (vseatsPerRow - 1);
+                            a = a + 1;
+                            html += '</div>';
+                        }
+                        html += '<input type="hidden" name="selectedSeats" id="selectedSeats" />';
+                        html += '</div></div></div>';
+                    }
+
+                    $('#DivEqual').html(html); // Insert the new HTML into the container
+
+                    var disabledSeats = data[0].SeatID;
+                    // Iterate over each seat
+                    $('.seat').each(function () {
+                        var seatValue = $(this).attr('data-hidden-value'); // Get the attribute value
+
+                        console.log('Raw seatValue:', seatValue); // Debugging output
+
+                        if (seatValue) {
+                            seatValue = seatValue.trim(); // Trim whitespace if seatValue is not undefined
+                            if (disabledSeats.includes(seatValue)) {
+                                $(this).addClass('disabled'); // Add disabled class
+                                $(this).off('click'); // Remove click event to disable interaction
+                            } else {
+                                $(this).removeClass('disabled'); // Ensure the seat is not disabled
+                            }
+                        } else {
+                            console.warn('data-hidden-value is undefined for:', $(this)); // Warning if attribute is missing
+                        }
+                    });
+                }
+            });
+        });
+    });
+    //<div class="seat" id="LblRows1" data-hidden-value="888">A1</div>
+    //function selectseat(event) {
+    //    alert(event);
+    //    var selectedSeatsValue = document.getElementById('selectedSeats').value;
+    //    var selectedSeats = selectedSeatsValue ? selectedSeatsValue.split(',') : [];
+    //    if (!selectedSeats.includes(event)) {
+    //        selectedSeats.push(event);
+    //    }
+    //    document.getElementById('selectedSeats').value = selectedSeats.join(',');
+    //    alert(document.getElementById('selectedSeats').value);
+    //}
+
+    $('#btnsave').click(function () {
+        var nselectedSeats = $('#selectedSeats').val();
+        var Eventid = $('#ddlEvent').val();
+        var locationid = $('#ddlLoc').val();
+        var TotalbookingPrice = $('#txtTotalbookingPrice').val();
+        var parts = nselectedSeats.split(',');
+        var ntotalbookseat = parts.length;
+        var nEventmstid = $('#txtEventmstid').val();
+        //alert('SAVEME');
+        //alert(nselectedSeats);
+        //alert(nEventmstid);
+        //alert(locationid);
+        //alert(TotalbookingPrice);
+        //alert(ntotalbookseat);
+        $.ajax({
+            url: '@Url.Action("AddBookInfo", "BookingInfo")',
+            type: 'GET',
+            data: { vEventid: nEventmstid, vLocId: locationid, vTotalbookSeat: ntotalbookseat, vTotalPrice: TotalbookingPrice, vseatid: nselectedSeats },
+            type: "Get",
+
+            success: function (data) {
+              //  alert('Save');
+               
+                   window.location.href = '@Url.Action("Index", "Ticket")';
+                //alert(data.);
+            }
+        });
+    });
+
+    function selectseat(element) {
+        //alert(element);
+        var seatValue = element.getAttribute('data-hidden-value');
+        var selectedSeatsInput = document.getElementById('selectedSeats');
+        var priceperseat = $('#txtPriceperseat').val();
+        var vbookinglimit = $('#txtbookinglimit').val();
+        //alert(priceperseat);
+        var selectedSeats = selectedSeatsInput.value ? selectedSeatsInput.value.split(',') : [];
+        var selseatcount = 0;
+
+
+
+        if (selectedSeats.includes(seatValue)) {
+            // Seat is already selected, so deselect it
+            selectedSeats = selectedSeats.filter(value => value !== seatValue);
+            element.classList.remove('selected');
+            element.classList.remove('disabled');
+             selseatcount = selectedSeats.length;
+        } else {
+            // Seat is not selected, so select it
+             selseatcount = selectedSeats.length +1 ;
+            if (selseatcount > vbookinglimit) {
+                alert("You cannot book more than " + vbookinglimit + " seats.");
+                return;
+            }
+            selectedSeats.push(seatValue);
+            element.classList.remove('disabled');
+            element.classList.add('selected');
+        }
+        // Update the hidden input with the new list of selected seats
+        selectedSeatsInput.value = selectedSeats.join(',');
+
+
+        var totalprice = priceperseat * selseatcount;
+        //alert(totalprice);
+        $('#txtTotalbookingPrice').val(totalprice);
+        $("#txtTotalbookingPrice").prop("disabled", true); // Disable
+        // Optional: Show the updated list of selected seats
+        //alert(selectedSeatsInput.value);
+    }
+</script>
+
+
 

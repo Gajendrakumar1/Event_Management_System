@@ -26,16 +26,16 @@ namespace Event_Management_System.Models
         }
     
         public virtual DbSet<Booking_SeatInfo_tbl> Booking_SeatInfo_tbl { get; set; }
-        public virtual DbSet<BookingInfo_tbl> BookingInfo_tbl { get; set; }
         public virtual DbSet<Branch_Tbl> Branch_Tbl { get; set; }
-        public virtual DbSet<College_Tbl> College_Tbl { get; set; }
         public virtual DbSet<Event_Tbl> Event_Tbl { get; set; }
         public virtual DbSet<EventMaster_Tbl> EventMaster_Tbl { get; set; }
         public virtual DbSet<Seat_tbl> Seat_tbl { get; set; }
         public virtual DbSet<Semester_Tbl> Semester_Tbl { get; set; }
         public virtual DbSet<State_List> State_List { get; set; }
-        public virtual DbSet<Student_tbl> Student_tbl { get; set; }
         public virtual DbSet<Year_Tbl> Year_Tbl { get; set; }
+        public virtual DbSet<BookingInfo_tbl> BookingInfo_tbl { get; set; }
         public virtual DbSet<EventLocationMaster_Tbl> EventLocationMaster_Tbl { get; set; }
+        public virtual DbSet<College_Tbl> College_Tbl { get; set; }
+        public virtual DbSet<Student_tbl> Student_tbl { get; set; }
     }
 }

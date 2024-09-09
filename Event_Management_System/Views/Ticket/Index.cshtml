@@ -1,0 +1,126 @@
+﻿@model IEnumerable<Event_Management_System.Models.Ticket>
+@{
+    ViewBag.Title = "Index";
+    var result = ViewBag.Result as dynamic;
+}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #f4f4f4;
+        margin: 0;
+    }
+
+    .ticket {
+        width: 300px;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+    }
+
+    .ticket-header {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+        .ticket-header img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .ticket-header h1 {
+            margin: 10px 0;
+            font-size: 24px;
+            color: #333;
+        }
+
+    .ticket-body {
+        margin-bottom: 10px;
+    }
+
+        .ticket-body .event-details {
+            margin-bottom: 10px;
+        }
+
+            .ticket-body .event-details h2 {
+                font-size: 18px;
+                margin: 5px 0;
+                color: #555;
+            }
+
+            .ticket-body .event-details p {
+                margin: 5px 0;
+                color: #777;
+            }
+
+    .ticket-footer {
+        text-align: center;
+        font-size: 14px;
+        color: #555;
+    }
+
+        .ticket-footer p {
+            margin: 5px 0;
+        }
+
+        .ticket-footer img {
+            margin-top: 10px;
+            max-width: 100%;
+            height: auto;
+        }
+</style>
+
+
+
+    @foreach (var item in Model)
+    {
+      <div class="row">
+          <div class="col-4">
+
+          </div>
+          <div class="col-4">
+
+              <div class="ticket">
+                  <div class="ticket-header">
+                      @*<h2>Event Details</h2>*@
+                      <h1>@item.CollName</h1>
+
+                  </div>
+                  <div class="ticket-body">
+                      <div class="ticket-details">
+                          <p><strong>Event Name:</strong>@item.EventName</p>
+                          <p><strong>Booking Date:</strong>@item.EventDate</p>
+                          <p><strong>Time:</strong>@item.EventTime</p>
+                          <p><strong>Location:</strong> @item.Venue</p>
+                      </div>
+                      <div class="ticket-details">
+                          <p><strong>Ticket Holder:</strong> @item.StudentName</p>
+                          @*<p><strong>Row/Seat:</strong>@item.Seats+"/"+@item.Seats</p>*@
+                          <p><strong>Row/Seat:</strong> @item.Seats </p>
+                          <p><strong>Total Price:</strong> @item.TicketPrice</p>
+                      </div>
+                      <div class="ticket-footer">
+                          <!-- QR Code Image -->
+                          <img src="@item.QRCodeBase64" alt="QR Code">
+                      </div>
+                  </div>
+                  <div class="ticket-footer">
+                      <p>Thank you for attending!</p>
+                      <p>Contact us: contact@event.com</p>
+
+                  </div>
+              </div>
+
+          </div>
+          <div class="col-4">
+
+          </div>
+      </div>
+          }

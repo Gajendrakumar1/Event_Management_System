@@ -18,7 +18,9 @@ namespace Event_Management_System.Models
         public Nullable<int> fk_booking_id { get; set; }
         public System.DateTime Created_Date { get; set; }
         public Nullable<int> Created_by { get; set; }
+        public Nullable<int> FKSeatID { get; set; }
     
         public virtual BookingInfo_tbl BookingInfo_tbl { get; set; }
+        public virtual Seat_tbl Seat_tbl { get; set; }
     }
 }

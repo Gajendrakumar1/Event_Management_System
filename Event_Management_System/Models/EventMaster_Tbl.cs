@@ -27,10 +27,10 @@ namespace Event_Management_System.Models
         public System.DateTime Created_Date { get; set; }
         public Nullable<int> Created_by { get; set; }
     
-        public virtual College_Tbl College_Tbl { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Event_Tbl> Event_Tbl { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Seat_tbl> Seat_tbl { get; set; }
+        public virtual College_Tbl College_Tbl { get; set; }
     }
 }

@@ -17,6 +17,7 @@ namespace Event_Management_System.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public EventLocationMaster_Tbl()
         {
+            this.BookingInfo_tbl = new HashSet<BookingInfo_tbl>();
             this.Event_Tbl = new HashSet<Event_Tbl>();
             this.Seat_tbl = new HashSet<Seat_tbl>();
         }
@@ -31,10 +32,12 @@ namespace Event_Management_System.Models
         public string Seattype { get; set; }
         public string rowvalue { get; set; }
     
-        public virtual College_Tbl College_Tbl { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BookingInfo_tbl> BookingInfo_tbl { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Event_Tbl> Event_Tbl { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Seat_tbl> Seat_tbl { get; set; }
+        public virtual College_Tbl College_Tbl { get; set; }
     }
 }
