@@ -23,16 +23,17 @@ namespace Event_Management_System.Models
         public int Booking_id { get; set; }
         public Nullable<int> fk_student_id { get; set; }
         public Nullable<int> fk_eventid { get; set; }
-        public System.DateTime booking_date { get; set; }
-        public string booking_time { get; set; }
-        public int TotalbookSeat { get; set; }
-        public decimal TotalPrice { get; set; }
-        public System.DateTime Created_Date { get; set; }
+        public Nullable<int> TotalbookSeat { get; set; }
+        public Nullable<decimal> TotalPrice { get; set; }
+        public Nullable<System.DateTime> Created_Date { get; set; }
         public Nullable<int> Created_by { get; set; }
+        public string SeatID { get; set; }
+        public Nullable<int> fklocationid { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Booking_SeatInfo_tbl> Booking_SeatInfo_tbl { get; set; }
         public virtual Event_Tbl Event_Tbl { get; set; }
+        public virtual EventLocationMaster_Tbl EventLocationMaster_Tbl { get; set; }
         public virtual Student_tbl Student_tbl { get; set; }
     }
 }

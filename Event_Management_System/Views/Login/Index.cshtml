@@ -1,0 +1,87 @@
+﻿@model Event_Management_System.Models.Student_tbl
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login</title>
+    <link href="~/Content/deshboard/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/deshboard/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Login/Login.css" rel="stylesheet" />
+
+    <script>
+        window.console = window.console || function (t) { };
+    </script>
+
+    <style>
+        /* Custom styles to reduce gap and center the image */
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        .company__info img {
+            display: block;
+            margin: 0 auto; /* Centers the image */
+        }
+
+
+
+        .login_form {
+            padding-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <div>
+        <div class="container-fluid">
+            <div class="row main-content text-center bg-primary">
+
+                <div class="col-md-5 company__info text-white d-flex flex-column justify-content-center align-items-center bg-primary">
+                    <h3 class="mb-4">EMS</h3>
+                    <img alt="EMS" src="~/Content/Login/loboEMS.jpeg" style="width: 200px; height: 150px;" />
+                    <h4 class="company_title mt-3">Event Management System</h4>
+                </div>
+
+                <div class="col-md-7 col-xs-12 col-sm-12 login_form">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <h2 id="login" class="text-primary mb-4">Log In</h2>
+                        </div>
+                        <div class="row">
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your mobile number" } })
+                                        </div>
+                                    </div>
+
+                                    <!-- Minimized gap between the text box and login button -->
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <input type="submit" value="Login" id="Loginbtn" class="btn btn-primary btn-block" />
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+        <div class="container-fluid text-center footer mt-3">
+            <!-- Optional footer content -->
+        </div>
+    </div>
+</body>
+</html>

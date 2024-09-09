@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Ticket</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+
+        .ticket {
+            width: 300px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .ticket-header {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+            .ticket-header img {
+                max-width: 100%;
+                height: auto;
+                border-radius: 10px;
+            }
+
+            .ticket-header h1 {
+                margin: 10px 0;
+                font-size: 24px;
+                color: #333;
+            }
+
+        .ticket-body {
+            margin-bottom: 10px;
+        }
+
+            .ticket-body .event-details {
+                margin-bottom: 10px;
+            }
+
+                .ticket-body .event-details h2 {
+                    font-size: 18px;
+                    margin: 5px 0;
+                    color: #555;
+                }
+
+                .ticket-body .event-details p {
+                    margin: 5px 0;
+                    color: #777;
+                }
+
+        .ticket-footer {
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+        }
+
+            .ticket-footer p {
+                margin: 5px 0;
+            }
+    </style>
+</head>
+<body>
+    <div class="ticket">
+        <div class="ticket-header">
+            <!-- Optionally add a logo or event image here -->
+            <img src="https://via.placeholder.com/300x150" alt="Event Image">
+            <h1>Event Name</h1>
+        </div>
+        <div class="ticket-body">
+            <div class="event-details">
+                <h2>Event Details</h2>
+                <p><strong>Date:</strong> October 2, 2024</p>
+                <p><strong>Time:</strong> 10:00 AM - 12:00 PM</p>
+                <p><strong>Venue:</strong> Event Location</p>
+            </div>
+            <div class="ticket-details">
+                <p><strong>Ticket Holder:</strong> John Doe</p>
+                <p><strong>Seat:</strong> A1</p>
+            </div>
+        </div>
+        <div class="ticket-footer">
+            <p>Thank you for attending!</p>
+            <p>Contact us: contact@event.com</p>
+        </div>
+    </div>
+</body>
+</html>

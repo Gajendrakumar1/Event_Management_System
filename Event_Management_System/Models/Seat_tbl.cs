@@ -14,6 +14,12 @@ namespace Event_Management_System.Models
     
     public partial class Seat_tbl
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Seat_tbl()
+        {
+            this.Booking_SeatInfo_tbl = new HashSet<Booking_SeatInfo_tbl>();
+        }
+    
         public int Seat_id { get; set; }
         public string Seat_Name { get; set; }
         public string Seat_row { get; set; }
@@ -22,6 +28,8 @@ namespace Event_Management_System.Models
         public Nullable<int> ISAVAIL { get; set; }
     
         public virtual EventMaster_Tbl EventMaster_Tbl { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Booking_SeatInfo_tbl> Booking_SeatInfo_tbl { get; set; }
         public virtual EventLocationMaster_Tbl EventLocationMaster_Tbl { get; set; }
     }
 }

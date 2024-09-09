@@ -33,9 +33,9 @@ namespace Event_Management_System.Models
         public System.DateTime Created_Date { get; set; }
         public Nullable<int> Created_by { get; set; }
     
+        public virtual EventMaster_Tbl EventMaster_Tbl { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BookingInfo_tbl> BookingInfo_tbl { get; set; }
-        public virtual EventMaster_Tbl EventMaster_Tbl { get; set; }
         public virtual EventLocationMaster_Tbl EventLocationMaster_Tbl { get; set; }
     }
 }

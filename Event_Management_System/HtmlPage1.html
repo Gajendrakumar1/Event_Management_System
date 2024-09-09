@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        .seat-chart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .row {
+            display: flex;
+            margin-bottom: 5px;
+        }
+
+        .seat {
+            width: 40px;
+            height: 40px;
+            margin: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #4CAF50;
+            color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            .seat.selected {
+                background-color: #f44336;
+            }
+
+            .seat.disabled {
+                background-color: #ccc;
+                cursor: not-allowed;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="row"><div class="col-md-12"><h3>Seat Layout</h3><div class="seat-chart"><div class="row"><div class="seat" id="LblRows1" data-hidden-value="888">A1</div><div class="seat" id="LblRows2" data-hidden-value=" 889">A2</div><div class="seat" id="LblRows3" data-hidden-value=" 890">A3</div><div class="seat" id="LblRows4" data-hidden-value=" 891">A4</div><div class="seat" id="LblRows5" data-hidden-value=" 892">A5</div><div class="seat" id="LblRows6" data-hidden-value=" 893">A6</div><div class="seat" id="LblRows7" data-hidden-value=" 894">A7</div><div class="seat" id="LblRows8" data-hidden-value=" 895">A8</div></div><div class="row"><div class="seat" id="LblRows9" data-hidden-value=" 896">B1</div><div class="seat" id="LblRows10" data-hidden-value=" 897">B2</div><div class="seat" id="LblRows11" data-hidden-value=" 898">B3</div><div class="seat" id="LblRows12" data-hidden-value=" 899">B4</div><div class="seat" id="LblRows13" data-hidden-value=" 900">B5</div><div class="seat" id="LblRows14" data-hidden-value=" 901">B6</div><div class="seat" id="LblRows15" data-hidden-value=" 902">B7</div><div class="seat" id="LblRows16" data-hidden-value=" 903">B8</div></div><div class="row"><div class="seat" id="LblRows17" data-hidden-value=" 904">C1</div><div class="seat" id="LblRows18" data-hidden-value=" 905">C2</div><div class="seat" id="LblRows19" data-hidden-value=" 906">C3</div><div class="seat" id="LblRows20" data-hidden-value=" 907">C4</div><div class="seat" id="LblRows21" data-hidden-value=" 908">C5</div><div class="seat" id="LblRows22" data-hidden-value=" 909">C6</div><div class="seat" id="LblRows23" data-hidden-value=" 910">C7</div><div class="seat" id="LblRows24" data-hidden-value=" 911">C8</div></div><div class="row"><div class="seat" id="LblRows25" data-hidden-value=" 912">D1</div><div class="seat" id="LblRows26" data-hidden-value=" 913">D2</div><div class="seat" id="LblRows27" data-hidden-value=" 914">D3</div><div class="seat" id="LblRows28" data-hidden-value=" 915">D4</div><div class="seat" id="LblRows29" data-hidden-value=" 916">D5</div><div class="seat" id="LblRows30" data-hidden-value=" 917">D6</div><div class="seat" id="LblRows31" data-hidden-value=" 918">D7</div><div class="seat" id="LblRows32" data-hidden-value=" 919">D8</div></div><div class="row"><div class="seat" id="LblRows33" data-hidden-value=" 920">E1</div><div class="seat" id="LblRows34" data-hidden-value=" 921">E2</div><div class="seat" id="LblRows35" data-hidden-value=" 922">E3</div><div class="seat" id="LblRows36" data-hidden-value=" 923">E4</div><div class="seat" id="LblRows37" data-hidden-value=" 924">E5</div><div class="seat" id="LblRows38" data-hidden-value=" 925">E6</div><div class="seat" id="LblRows39" data-hidden-value=" 926">E7</div><div class="seat" id="LblRows40" data-hidden-value=" 927">E8</div></div><div class="row"><div class="seat" id="LblRows41" data-hidden-value=" 928">F1</div><div class="seat" id="LblRows42" data-hidden-value=" 929">F2</div><div class="seat" id="LblRows43" data-hidden-value=" 930">F3</div><div class="seat" id="LblRows44" data-hidden-value=" 931">F4</div><div class="seat" id="LblRows45" data-hidden-value=" 932">F5</div><div class="seat" id="LblRows46" data-hidden-value=" 933">F6</div><div class="seat" id="LblRows47" data-hidden-value=" 934">F7</div><div class="seat" id="LblRows48" data-hidden-value=" 935">F8</div></div><div class="row"><div class="seat" id="LblRows49" data-hidden-value=" 936">G1</div><div class="seat" id="LblRows50" data-hidden-value=" 937">G2</div><div class="seat" id="LblRows51" data-hidden-value=" 938">G3</div><div class="seat" id="LblRows52" data-hidden-value=" 939">G4</div><div class="seat" id="LblRows53" data-hidden-value=" 940">G5</div><div class="seat" id="LblRows54" data-hidden-value=" 941">G6</div><div class="seat" id="LblRows55" data-hidden-value=" 942">G7</div><div class="seat" id="LblRows56" data-hidden-value=" 943">G8</div></div><div class="row"><div class="seat" id="LblRows57" data-hidden-value=" 944">H1</div><div class="seat" id="LblRows58" data-hidden-value=" 945">H2</div><div class="seat" id="LblRows59" data-hidden-value=" 946">H3</div><div class="seat" id="LblRows60" data-hidden-value=" 947">H4</div><div class="seat" id="LblRows61" data-hidden-value=" 948">H5</div><div class="seat" id="LblRows62" data-hidden-value=" 949">H6</div><div class="seat" id="LblRows63" data-hidden-value=" 950">H7</div><div class="seat" id="LblRows64" data-hidden-value=" 951">H8</div></div><div class="row"><div class="seat" id="LblRows65" data-hidden-value=" 952">I1</div><div class="seat" id="LblRows66" data-hidden-value=" 953">I2</div><div class="seat" id="LblRows67" data-hidden-value=" 954">I3</div><div class="seat" id="LblRows68" data-hidden-value=" 955">I4</div><div class="seat" id="LblRows69" data-hidden-value=" 956">I5</div><div class="seat" id="LblRows70" data-hidden-value=" 957">I6</div><div class="seat" id="LblRows71" data-hidden-value=" 958">I7</div><div class="seat" id="LblRows72" data-hidden-value=" 959">I8</div></div><div class="row"><div class="seat" id="LblRows73" data-hidden-value=" 960">J1</div><div class="seat" id="LblRows74" data-hidden-value=" 961">J2</div><div class="seat" id="LblRows75" data-hidden-value=" 962">J3</div><div class="seat" id="LblRows76" data-hidden-value=" 963">J4</div><div class="seat" id="LblRows77" data-hidden-value=" 964">J5</div><div class="seat" id="LblRows78" data-hidden-value=" 965">J6</div><div class="seat" id="LblRows79" data-hidden-value=" 966">J7</div><div class="seat" id="LblRows80" data-hidden-value=" 967">J8</div></div><input type="hidden" name="selectedSeats" id="selectedSeats"></div></div></div>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('.seat').on('click', function () {
+            // Get the text inside the clicked .seat element
+            var seatText = $(this).text();
+
+            // Get the value of the data-hidden-value attribute
+            var hiddenValue = $(this).data('hidden-value');
+
+            // Display or use the values
+            console.log('Seat Text: ' + seatText);
+            console.log('Hidden Value: ' + hiddenValue);
+
+            // Example: Show values in an alert
+            alert('Seat Text: ' + seatText + '\nHidden Value: ' + hiddenValue);
+        });
+    });
+ 
+    //<div class="seat" id="LblRows1" data-hidden-value="888">A1</div>
+</script>
+</html>

@@ -182,7 +182,7 @@
                 var totalSeats = $('#totalSeats').val();
                 var vnumberOfRows = parseInt(numberOfRows, 10);
                 var vtotalSeats = parseInt(totalSeats, 10);
-                var vseatsPerRow = totalSeats / vnumberOfRows;
+                var vseatsPerRow = vtotalSeats / vnumberOfRows;
                 $.ajax({
                     url: '@Url.Action("GetSeatEqual", "EventLocationMaster")',
                     type: 'GET',
