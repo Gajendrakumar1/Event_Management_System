@@ -37,8 +37,8 @@ namespace Event_Management_System.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BookingInfo_tbl> BookingInfo_tbl { get; set; }
-        public virtual College_Tbl College_Tbl { get; set; }
         public virtual Semester_Tbl Semester_Tbl { get; set; }
         public virtual Year_Tbl Year_Tbl { get; set; }
+        public virtual College_Tbl College_Tbl { get; set; }
     }
 }

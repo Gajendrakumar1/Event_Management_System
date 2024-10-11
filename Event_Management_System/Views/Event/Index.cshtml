@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Mst.cshtml";
 }
 
 
@@ -25,27 +26,34 @@
             @Html.DisplayNameFor(model => model.EventLocationMaster_Tbl.Location)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Event_FromDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Event_ToDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Event_FromTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Event_ToTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PriceperSeat)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.maxSeatbookperuser)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.DisplayName("From Date")
 
-        <th>Action</th>
+            @*@Html.DisplayNameFor(model => model.Event_FromDate)*@
+        </th>
+        <th>
+            @Html.DisplayName("To Date")
+            @*@Html.DisplayNameFor(model => model.Event_ToDate)*@
+        </th>
+        <th>
+            @Html.DisplayName("From Time")
+            @*@Html.DisplayNameFor(model => model.Event_FromTime)*@
+        </th>
+        <th>
+            @Html.DisplayName("To Time")
+            @*@Html.DisplayNameFor(model => model.Event_ToTime)*@
+        </th>
+        <th>
+            @Html.DisplayName("Price/Seat")
+            @*@Html.DisplayNameFor(model => model.PriceperSeat)*@
+        </th>
+        <th>
+            @Html.DisplayName("Seatbook/user")
+                @*@Html.DisplayNameFor(model => model.maxSeatbookperuser)*@
+            </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Price)
+            </th>*@
+        @*<th>Action</th>*@
     </tr>
 
 @foreach (var item in Model) {
@@ -59,6 +67,7 @@
 
         <td>
             @Html.DisplayFor(modelItem => item.Event_FromDate)
+
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Event_ToDate)
@@ -75,15 +84,15 @@
         <td>
             @Html.DisplayFor(modelItem => item.maxSeatbookperuser)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.Price)
-        </td>
+        </td>*@
 
 
-        <td>
+        @*<td>
             @Html.ActionLink("Edit", "Edit", new { id = item.Event_Id }) |
             @Html.ActionLink("Delete", "Delete", new { id = item.Event_Id })
-        </td>
+        </td>*@
     </tr>
 }
 

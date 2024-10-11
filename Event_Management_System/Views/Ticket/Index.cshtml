@@ -1,13 +1,14 @@
 ﻿@model IEnumerable<Event_Management_System.Models.Ticket>
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Mst.cshtml";
     var result = ViewBag.Result as dynamic;
 }
 <style>
     body {
         font-family: Arial, sans-serif;
         display: flex;
-        justify-content: center;
+        /*justify-content: center;*/
         align-items: center;
         min-height: 100vh;
         background-color: #f4f4f4;
@@ -79,48 +80,75 @@
 
 
 
-    @foreach (var item in Model)
-    {
-      <div class="row">
-          <div class="col-4">
+@foreach (var item in Model)
+{
+    <div class="row">
 
-          </div>
-          <div class="col-4">
+        <div class="col-4">
 
-              <div class="ticket">
-                  <div class="ticket-header">
-                      @*<h2>Event Details</h2>*@
-                      <h1>@item.CollName</h1>
+        </div>
+        <div class="col-4">
+        </div>
+        <div class="col-4" style="width:250px;text-align:right">
+            <button onclick="printDiv('eventticket')">Print Ticket</button>
+        </div>
+    </div>
+    <div class="row">
 
-                  </div>
-                  <div class="ticket-body">
-                      <div class="ticket-details">
-                          <p><strong>Event Name:</strong>@item.EventName</p>
-                          <p><strong>Booking Date:</strong>@item.EventDate</p>
-                          <p><strong>Time:</strong>@item.EventTime</p>
-                          <p><strong>Location:</strong> @item.Venue</p>
-                      </div>
-                      <div class="ticket-details">
-                          <p><strong>Ticket Holder:</strong> @item.StudentName</p>
-                          @*<p><strong>Row/Seat:</strong>@item.Seats+"/"+@item.Seats</p>*@
-                          <p><strong>Row/Seat:</strong> @item.Seats </p>
-                          <p><strong>Total Price:</strong> @item.TicketPrice</p>
-                      </div>
-                      <div class="ticket-footer">
-                          <!-- QR Code Image -->
-                          <img src="@item.QRCodeBase64" alt="QR Code">
-                      </div>
-                  </div>
-                  <div class="ticket-footer">
-                      <p>Thank you for attending!</p>
-                      <p>Contact us: contact@event.com</p>
+        <div class="col-4">
 
-                  </div>
-              </div>
+        </div>
+        <div class="col-4" id="eventticket">
 
-          </div>
-          <div class="col-4">
+            <div class="ticket">
+                <div class="ticket-header">
+                    @*<h2>Event Details</h2>*@
+                    <h1>@item.CollName</h1>
 
-          </div>
-      </div>
-          }
+                </div>
+                <div class="ticket-body">
+                    <div class="ticket-details">
+                        <p><strong>Event Name:</strong>@item.EventName</p>
+                        <p><strong>Booking Date:</strong>@item.EventDate</p>
+                        <p><strong>Time:</strong>@item.EventTime</p>
+                        <p><strong>Location:</strong> @item.Venue</p>
+                    </div>
+                    <div class="ticket-details">
+                        <p><strong>Ticket Holder:</strong> @item.StudentName</p>
+                        @*<p><strong>Row/Seat:</strong>@item.Seats+"/"+@item.Seats</p>*@
+                        <p><strong>Row/Seat:</strong> @item.Seats </p>
+                        <p><strong>Total Price:</strong> @item.TicketPrice</p>
+                    </div>
+                    <div class="ticket-footer">
+                        <!-- QR Code Image -->
+                        <img src="@item.QRCodeBase64" alt="QR Code">
+                    </div>
+                </div>
+                <div class="ticket-footer">
+                    <p>Thank you for attending!</p>
+                    <p>Contact us: contact@event.com</p>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-4" style="width:250px">
+
+        </div>
+    </div>
+}
+<script>
+    function printDiv(divId) {
+        // Get the content of the div
+        var divContents = document.getElementById(divId).innerHTML;
+        // Open a new window
+        var printWindow = window.open('', '', 'height=400,width=600');
+        printWindow.document.write('<html><head><title>Print</title>');
+        printWindow.document.write('</head><body>');
+        // Write the div content to the new window
+        printWindow.document.write(divContents);
+        printWindow.document.write('</body></html>');
+        printWindow.document.close(); // Close the document to finish loading
+        printWindow.print(); // Trigger the print dialog
+    }
+</script>

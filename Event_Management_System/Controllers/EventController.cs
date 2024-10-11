@@ -9,25 +9,38 @@ using System.Data;
 
 namespace Event_Management_System.Controllers
 {
-    public class EventController : Controller
+    public class EventController : BaseController
     {
+        public EventController(MenuService menuService) : base(menuService)
+        {
+        }
         // GET: Event
         public ActionResult Index()
         {
+            if (Session["Collegeid"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            int colgid = int.Parse(Session["Collegeid"].ToString());
             using (Event_Management_SystemEntities db = new Event_Management_SystemEntities())
             {
-                List<Event_Tbl> evtLoc = db.Event_Tbl.Include(i => i.EventMaster_Tbl).Include(i => i.EventLocationMaster_Tbl).ToList();
+                List<Event_Tbl> evtLoc = db.Event_Tbl.Include(i => i.EventMaster_Tbl).Include(i => i.EventLocationMaster_Tbl).Where(a=>a.EventLocationMaster_Tbl.FKCollege_ID== colgid).ToList();
                 return View(evtLoc);
             }
         }
         public ActionResult Add()
         {
+            if (Session["Collegeid"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            int colgid = int.Parse(Session["Collegeid"].ToString());
             List<EventMaster_Tbl> evtList = new List<EventMaster_Tbl>();
             List<EventLocationMaster_Tbl> locList = new List<EventLocationMaster_Tbl>();
 
             using (Event_Management_SystemEntities db = new Event_Management_SystemEntities())
             {
-                var evtData = db.EventMaster_Tbl.ToList();
+                var evtData = db.EventMaster_Tbl.Where(a=>a.FKCollege_ID== colgid).ToList();
                 foreach (var i in evtData)
                 {
                     evtList.Add(new EventMaster_Tbl
@@ -40,7 +53,7 @@ namespace Event_Management_System.Controllers
 
                 ViewBag.EvtMstData = new SelectList(evtList, "Event_Id", "Event_Name");
 
-                var locData = db.EventLocationMaster_Tbl.ToList();
+                var locData = db.EventLocationMaster_Tbl.Where(a => a.FKCollege_ID == colgid).ToList();
                 foreach (var i in locData)
                 {
                     locList.Add(new EventLocationMaster_Tbl

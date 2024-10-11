@@ -8,10 +8,15 @@ using System.Data.Entity;
 using System.Data;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 
+
 namespace Event_Management_System.Controllers
 {
-    public class BookingInfoController : Controller
+    public class BookingInfoController : BaseController
     {
+        // GET: Test1
+        public BookingInfoController(MenuService menuService) : base(menuService)
+        {
+        }
         // GET: BookingInfo
         public ActionResult Index()
         {
@@ -46,6 +51,10 @@ namespace Event_Management_System.Controllers
         }
         public ActionResult Add()
         {
+            if (Session["Mobile"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             List<EventMaster_Tbl> evtList = new List<EventMaster_Tbl>();
             using (Event_Management_SystemEntities db = new Event_Management_SystemEntities())
             {

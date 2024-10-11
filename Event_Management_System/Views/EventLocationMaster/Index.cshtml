@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Mst.cshtml";
     var seats = ViewBag.Seats as Dictionary<string, List<Event_Management_System.Models.Seat>>;
 }
 
@@ -94,21 +95,21 @@
 
 </table>
 
-<h2>Seat Layout</h2>
+@*<h2>Seat Layout</h2>*@
 
-<div class="seat-chart">
-    <form id="seatForm" action="@Url.Action("Book", "EventLocationMaster")" method="post">
-        @if (seats != null)
-        {
+@*<div class="seat-chart">
+    <form id="seatForm" action="@Url.Action("Book", "EventLocationMaster")" method="post">*@
+        @*@if (seats != null)*@
+        @*{
             foreach (var row in seats)
             {
-                <div class="row">
-                    @foreach (var seat in row.Value)
-                    {
-                        <div class="seat" data-seat-id="@seat.Label">
+                <div class="row">*@
+                    @*@foreach (var seat in row.Value)*@
+                    @*{
+                        <div class="seat" data-seat-id="@seat.Label">*@
                             @*<div class="seat" id="LblRows1" data-hidden-value="888">A1</div>*@
-                            @seat.Label
-                        </div>
+                            @*@seat.Label*@
+                        @*</div>
                     }
                 </div>
             }
@@ -116,9 +117,9 @@
         <input type="hidden" name="selectedSeats" id="selectedSeats" />
         <button type="submit">Book</button>
     </form>
-</div>
+</div>*@
 
-<script>
+@*<script>
     document.querySelectorAll('.seat').forEach(seat => {
         seat.addEventListener('click', function () {
             if (!seat.classList.contains('disabled')) {
@@ -135,4 +136,4 @@
         });
         document.getElementById('selectedSeats').value = selectedSeats.join(',');
     }
-</script>
+</script>*@

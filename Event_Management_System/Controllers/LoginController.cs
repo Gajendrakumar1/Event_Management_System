@@ -13,6 +13,13 @@ namespace Event_Management_System.Controllers
         // GET: Login
         public ActionResult Index()
         {
+            var categories = new List<SelectListItem>
+            {
+                new SelectListItem { Text = "Student", Value = "Student" },
+                new SelectListItem { Text = "Admin", Value = "Admin" }
+            };
+
+            ViewBag.catMsg = new SelectList(categories, "Value", "Text");
             return View();
         }
 
@@ -21,28 +28,56 @@ namespace Event_Management_System.Controllers
         {
             using (Event_Management_SystemEntities db = new Event_Management_SystemEntities())
             {
+
                 if (ModelState.IsValid == true)
                 {
-                    var MobNum = db.Student_tbl
-                         .Where(model => model.Mobile == u.Mobile).FirstOrDefault();
-
-                    if (MobNum == null)
+                    if (u.Name == "Student")
                     {
-                        Session["Mobile"] = u.Mobile;
-                        //  Session["Type"] = u.type;
+                        var MobNum = db.Student_tbl
+                             .Where(model => model.Mobile == u.Mobile).FirstOrDefault();
 
-                        return RedirectToAction("Create", "User");
+                        if (MobNum == null)
+                        {
+                            Session["Mobile"] = u.Mobile;
+                            Session["Type"] = "Student";
+
+                            return RedirectToAction("Create", "User");
+                        }
+                        else
+                        {
+                            //string a = u.@type;
+                            Session["userid"] = MobNum.Student_id;
+                            Session["Type"] = "Student";
+                            Session["Mobile"] = MobNum.Mobile;
+                            Session["Name"] = MobNum.Name;
+                            Session["College"] = MobNum.College_Tbl.College_Name;
+                            Session["Collegeid"] = MobNum.College_Tbl.College_id;
+                            return RedirectToAction("Index", "BookingInfo");
+                        }
                     }
                     else
                     {
-                        //string a = u.@type;
-                        Session["userid"] = MobNum.Student_id;
-                        //Session["Type"] = MobNum.type;
-                        Session["Mobile"] = MobNum.Mobile;
-                        Session["Name"] = MobNum.Name;
-                        Session["College"] = MobNum.College_Tbl.College_Name;
-                        Session["Collegeid"] = MobNum.College_Tbl.College_id;
-                        return RedirectToAction("Index", "BookingInfo");
+                        var MobNum = db.User_tbl
+                             .Where(model => model.mobileNo == u.Mobile).FirstOrDefault();
+
+                        if (MobNum == null)
+                        {
+                            Session["Mobile"] = u.Mobile;
+                            Session["Type"] = "Admin";
+
+                            return RedirectToAction("Create", "User");
+                        }
+                        else
+                        {
+                            //string a = u.@type;
+                            Session["userid"] = MobNum.AdminId;
+                            Session["Type"] = "Admin";
+                            Session["Mobile"] = MobNum.mobileNo;
+                            Session["Name"] = MobNum.Name;
+                            Session["College"] = MobNum.College_Tbl.College_Name;
+                            Session["Collegeid"] = MobNum.College_Tbl.College_id;
+                            return RedirectToAction("Index", "College");
+                        }
                     }
                 }
                 return View();

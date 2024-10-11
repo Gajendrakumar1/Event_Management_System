@@ -1,6 +1,7 @@
 ﻿@model Event_Management_System.Models.EventCollegeVM
 @{
     ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Mst.cshtml";
 }
 
 <h2>Add Event</h2>
@@ -10,7 +11,7 @@
     <div class="row">
         <div class="col-md-6">
             <label>College Name</label>
-            @Html.DropDownListFor(x => x.College_id, ViewBag.CollegeData as SelectList, "--Select College--", new { @class = "form-control" })
+            @Html.DropDownListFor(x => x.College_id, ViewBag.CollegeData as SelectList, new { @class = "form-control" })
         </div>
 
         <div class="col-md-6">

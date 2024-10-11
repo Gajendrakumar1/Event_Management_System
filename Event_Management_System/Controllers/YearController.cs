@@ -8,8 +8,12 @@ using System.Web.Mvc;
 
 namespace Event_Management_System.Controllers
 {
-    public class YearController : Controller
+    public class YearController : BaseController
     {
+        public YearController(MenuService menuService) : base(menuService)
+        {
+        }
+       
         // GET: Year
         public ActionResult Index()
         {
