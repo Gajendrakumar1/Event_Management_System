@@ -11,25 +11,28 @@ using System.Net.Sockets;
 
 namespace Event_Management_System.Controllers
 {
-    public class TicketController : Controller
+    public class TicketController : BaseController
     {
+        public TicketController(MenuService menuService) : base(menuService)
+        {
+        }
         // GET: Ticket
         public ActionResult Index()
         {
 
-            int vbookingid = int.Parse(TempData["Bookingid"].ToString());
+            int vbookingid = int.Parse(TempData["Bookingid"].ToString());// 28;//
             var bookinginfo = new List<bookinginfo>();
             var ticket = new List<Ticket>();
             using (Event_Management_SystemEntities db = new Event_Management_SystemEntities())
             {
 
                 var bookings = db.BookingInfo_tbl
-         .Include(b => b.Booking_SeatInfo_tbl)
-         .Include(b => b.Event_Tbl)
-         .Include(b => b.EventLocationMaster_Tbl)
-         .Include (b => b.Student_tbl)
-         .Where(b => b.Booking_id == vbookingid)
-         .ToList();
+                 .Include(b => b.Booking_SeatInfo_tbl)
+                 .Include(b => b.Event_Tbl)
+                 .Include(b => b.EventLocationMaster_Tbl)
+                 .Include (b => b.Student_tbl)
+                 .Where(b => b.Booking_id == vbookingid)
+                 .ToList();
 
                 var result = new List<Ticket>();
 

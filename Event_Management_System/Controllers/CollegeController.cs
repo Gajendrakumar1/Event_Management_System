@@ -8,19 +8,22 @@ using System.Web.Mvc;
 
 namespace Event_Management_System.Controllers
 {
-    public class CollegeController : Controller
+    public class CollegeController : BaseController
     {
+        public CollegeController(MenuService menuService) : base(menuService)
+        {
+        }
         // GET: College
         public ActionResult Index()
         {
             using(Event_Management_SystemEntities db = new Event_Management_SystemEntities())
             {
-                //if(Session["Mobile"] == null)
-                //{
-                //    return RedirectToAction("Login" , "LoginPage");
-                //}
-
-                List<College_Tbl> CollegeData = db.College_Tbl.ToList();
+                if (Session["Collegeid"] == null)
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+                int colgid = int.Parse(Session["Collegeid"].ToString());
+                List<College_Tbl> CollegeData = db.College_Tbl.Where(a=>a.College_id== colgid).ToList();
                 return View(CollegeData);
             }
         }

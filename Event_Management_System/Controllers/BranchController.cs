@@ -8,8 +8,11 @@ using System.Web.Mvc;
 
 namespace Event_Management_System.Controllers
 {
-    public class BranchController : Controller
+    public class BranchController : BaseController
     {
+        public BranchController(MenuService menuService) : base(menuService)
+        {
+        }
         // GET: Branch
         public ActionResult Index()
         {

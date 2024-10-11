@@ -35,7 +35,8 @@ namespace Event_Management_System.Models
         public virtual DbSet<Year_Tbl> Year_Tbl { get; set; }
         public virtual DbSet<BookingInfo_tbl> BookingInfo_tbl { get; set; }
         public virtual DbSet<EventLocationMaster_Tbl> EventLocationMaster_Tbl { get; set; }
-        public virtual DbSet<College_Tbl> College_Tbl { get; set; }
         public virtual DbSet<Student_tbl> Student_tbl { get; set; }
+        public virtual DbSet<User_tbl> User_tbl { get; set; }
+        public virtual DbSet<College_Tbl> College_Tbl { get; set; }
     }
 }

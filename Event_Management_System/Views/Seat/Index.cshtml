@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Mst.cshtml";
 }
 
 
@@ -10,15 +11,15 @@
     <div class="col-md-6">
         <h3>Seat Details</h3>
     </div>
-    <div class="col-md-6 text-end">
+    @*<div class="col-md-6 text-end">
         <a href="/Seat/Add" class="btn btn-primary">Add New</a>
-    </div>
+    </div>*@
 </div>
 <table class="table table-bordered">
     <tr>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.EventMaster_Tbl.Event_Name)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.EventLocationMaster_Tbl.Location)
         </th>
@@ -30,14 +31,14 @@
         </th>
 
 
-        <th>Action</th>
+        @*<th>Action</th>*@
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.EventMaster_Tbl.Event_Name)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.EventLocationMaster_Tbl.Location)
         </td>
@@ -49,10 +50,10 @@
         </td>
 
 
-        <td>
+        @*<td>
             @Html.ActionLink("Edit", "Edit", new { id = item.Seat_id }) |
             @Html.ActionLink("Delete", "Remove", new { id = item.Seat_id })
-        </td>
+        </td>*@
     </tr>
 }
 

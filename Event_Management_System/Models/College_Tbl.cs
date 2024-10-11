@@ -20,6 +20,7 @@ namespace Event_Management_System.Models
             this.EventLocationMaster_Tbl = new HashSet<EventLocationMaster_Tbl>();
             this.EventMaster_Tbl = new HashSet<EventMaster_Tbl>();
             this.Student_tbl = new HashSet<Student_tbl>();
+            this.User_tbl = new HashSet<User_tbl>();
         }
     
         public int College_id { get; set; }
@@ -30,6 +31,7 @@ namespace Event_Management_System.Models
         public string PinCode { get; set; }
         public System.DateTime Created_Date { get; set; }
         public Nullable<int> Created_by { get; set; }
+        public string InitialName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EventLocationMaster_Tbl> EventLocationMaster_Tbl { get; set; }
@@ -37,5 +39,7 @@ namespace Event_Management_System.Models
         public virtual ICollection<EventMaster_Tbl> EventMaster_Tbl { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Student_tbl> Student_tbl { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User_tbl> User_tbl { get; set; }
     }
 }

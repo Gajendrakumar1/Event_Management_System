@@ -23,14 +23,16 @@
         <AssociationConnector Association="Event_Management_SystemModel.FK_BookingInfo_tbl_EventLocationMaster_Tbl" />
         <AssociationConnector Association="Event_Management_SystemModel.FK__Event_Tbl__fk_Ev__619B8048" />
         <AssociationConnector Association="Event_Management_SystemModel.FK__Seat_tbl__FK_Eve__5CD6CB2B" />
-        <EntityTypeShape EntityType="Event_Management_SystemModel.College_Tbl" Width="1.5" PointX="0.75" PointY="6.5" />
         <EntityTypeShape EntityType="Event_Management_SystemModel.Student_tbl" Width="1.5" PointX="6" PointY="1.5" />
         <AssociationConnector Association="Event_Management_SystemModel.FK__BookingIn__fk_st__6477ECF3" />
+        <AssociationConnector Association="Event_Management_SystemModel.FK__Student_t__FKSem__5441852A" />
+        <AssociationConnector Association="Event_Management_SystemModel.FK__Student_t__FkYea__534D60F1" />
+        <EntityTypeShape EntityType="Event_Management_SystemModel.User_tbl" Width="1.5" PointX="3" PointY="17.25" />
+        <EntityTypeShape EntityType="Event_Management_SystemModel.College_Tbl" Width="1.5" PointX="0.75" PointY="9.5" />
         <AssociationConnector Association="Event_Management_SystemModel.FK__EventLoca__FKCol__59FA5E80" />
         <AssociationConnector Association="Event_Management_SystemModel.FK__EventMast__FKCol__571DF1D5" />
         <AssociationConnector Association="Event_Management_SystemModel.FK__Student_t__FKCol__52593CB8" />
-        <AssociationConnector Association="Event_Management_SystemModel.FK__Student_t__FKSem__5441852A" />
-        <AssociationConnector Association="Event_Management_SystemModel.FK__Student_t__FkYea__534D60F1" />
+        <AssociationConnector Association="Event_Management_SystemModel.FK_User_tbl_College_Tbl" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

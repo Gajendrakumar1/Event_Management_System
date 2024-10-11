@@ -7,8 +7,11 @@ using System.Web.Mvc;
 
 namespace Event_Management_System.Controllers
 {
-    public class SemesterController : Controller
+    public class SemesterController : BaseController
     {
+        public SemesterController(MenuService menuService) : base(menuService)
+        {
+        }
         // GET: Semester
         public ActionResult Index()
         {

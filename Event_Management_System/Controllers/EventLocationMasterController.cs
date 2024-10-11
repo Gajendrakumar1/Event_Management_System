@@ -12,8 +12,11 @@ using System.Web.UI.WebControls;
 
 namespace Event_Management_System.Controllers
 {
-    public class EventLocationMasterController : Controller
+    public class EventLocationMasterController : BaseController
     {
+        public EventLocationMasterController(MenuService menuService) : base(menuService)
+        {
+        }
         // GET: EventLocationMaster
         public ActionResult Index()
         {
@@ -25,7 +28,12 @@ namespace Event_Management_System.Controllers
 
             using (Event_Management_SystemEntities db = new Event_Management_SystemEntities())
             {
-                List<EventLocationMaster_Tbl> evtLoc = db.EventLocationMaster_Tbl.Include(i => i.College_Tbl).ToList();
+                if (Session["Collegeid"] == null)
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+                int colgid = int.Parse(Session["Collegeid"].ToString());
+                List<EventLocationMaster_Tbl> evtLoc = db.EventLocationMaster_Tbl.Include(i => i.College_Tbl).Where(a=>a.College_Tbl.College_id==colgid).ToList();
                 return View(evtLoc);
             }
             
@@ -38,10 +46,15 @@ namespace Event_Management_System.Controllers
             //    .GroupBy(s => s.Row)
             //    .ToDictionary(g => g.Key, g => g.ToList());
             ////ViewBag.Seats = groupedSeats;
+            if (Session["Collegeid"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            int colgid = int.Parse(Session["Collegeid"].ToString());
             List<College_Tbl> collegeList = new List<College_Tbl>();
             using (Event_Management_SystemEntities db = new Event_Management_SystemEntities())
             {
-                var collegeData = db.College_Tbl.ToList();
+                var collegeData = db.College_Tbl.Where(c => c.College_id == colgid).ToList();
                 foreach (var item in collegeData)
                 {
                     collegeList.Add(new College_Tbl
